@@ -6,7 +6,7 @@
 App ideas for SEIS 606 (Vibe Coding) exploring sports, travel, finance, fitness, nutrition, and productivity applications.
 
 1. Volleyball Central:
-A centralized platform that aggregates volleyball content from NCAA, LOVB, MLV, PVF, and international competitions. Features would include live scores, rankings, player statistics, team standings, news, transfer portal tracking, recruiting updates, and AI-generated match summaries.
+A centralized platform that aggregates volleyball content from NCAA, LOVB, MLV, and international competitions. Features would include live scores, rankings, player statistics, team standings, news, transfer portal tracking, recruiting updates, AI-generated match summaries, and more.
 
 2. AI Travel Planner:
 An application that creates personalized travel itineraries based on budget, destination preferences, trip duration, and interests. Includes budgeting tools, maps, activity recommendations, and AI trip planning.
