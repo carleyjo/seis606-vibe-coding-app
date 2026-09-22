@@ -1,24 +1,105 @@
-# seis606-vibe-coding-app
-**Carley Saeger**
-**University of St. Thomas**
-**Fall 2026**
+# 🏐 VolleyCentral
 
-App ideas for SEIS 606 (Vibe Coding) exploring sports, travel, finance, fitness, nutrition, and productivity applications.
+## Everything Volleyball. One Place.
 
-1. Volleyball Central:
-A centralized platform that aggregates volleyball content from NCAA, LOVB, MLV, and international competitions. Features would include live scores, rankings, player statistics, team standings, news, transfer portal tracking, recruiting updates, AI-generated match summaries, and more.
+VolleyCentral is a centralized volleyball platform focused on NCAA Women's Volleyball (Division I, II, and III), LOVB, and MLV.
 
-2. AI Travel Planner:
-An application that creates personalized travel itineraries based on budget, destination preferences, trip duration, and interests. Includes budgeting tools, maps, activity recommendations, and AI trip planning.
+The goal is to eliminate the fragmented experience volleyball fans face when trying to follow scores, rankings, schedules, standings, news, recruiting updates, and transfer portal activity across multiple websites.
 
-3. AI Financial Coach:
-A personal finance platform that analyzes spending habits, tracks budgets, forecasts savings goals, and provides personalized financial recommendations and visualizations.
+## Problem
 
-4. Adulting Life Manager:
-An all-in-one life management tool for tracking bills, subscriptions, habits, goals, appointments, chores, and personal tasks with AI-powered prioritization and scheduling suggestions.
+Volleyball content is spread across NCAA, LOVB, MLV, team websites, social media, and news outlets. Fans often need to browse several sources just to stay informed.
 
-5. AI Fitness Operating System:
-A platform that combines workout tracking, fitness goals, recovery metrics, progress analytics, and AI-generated workout recommendations into a single dashboard.
+VolleyCentral brings everything together into a single, personalized experience.
 
-6. Personal Nutrition Assistant:
-A healthy eating platform that provides meal planning, grocery list generation, pantry tracking, macro analysis, and personalized nutrition recommendations.
+## Target Users
+
+- Volleyball fans
+- Current and former players
+- Parents
+- Coaches
+- Recruiters
+- Sports analysts
+
+## Core Features
+
+### MVP (Version 1)
+
+✅ Personalized Dashboard
+
+✅ Favorite Teams
+
+✅ Live Scores
+
+✅ Rankings
+
+✅ Team Standings
+
+✅ Match Schedules
+
+✅ Volleyball News Feed
+
+### Future Features
+
+🔜 Recruiting Tracker
+
+🔜 Transfer Portal Tracker
+
+🔜 Player Statistics
+
+🔜 AI Match Summaries
+
+🔜 Player Profiles
+
+🔜 Personalized Notifications
+
+## Supported Competitions
+
+### NCAA Women's Volleyball
+- Division I
+- Division II
+- Division III
+
+### Professional Volleyball
+- LOVB (League One Volleyball)
+- MLV (Major League Volleyball)
+
+## Design Goals
+
+- Mobile-first experience
+- Fast and intuitive navigation
+- Modern sports media aesthetic
+- Information available within three clicks
+- Personalized experience based on favorite teams
+
+## Data & Attribution
+
+VolleyCentral uses publicly available information and respects all attribution requirements, terms of service, and rate limits associated with third-party data sources.
+
+The platform serves as an aggregation and discovery tool and links users to original sources when appropriate.
+
+## Tech Stack (Planned)
+
+- TypeScript
+- React / Next.js
+- Tailwind CSS
+- OpenAPI
+- Responsive Web Design
+
+## Project Status
+
+🚧 Constitution Phase
+
+🚧 Initial Specification Phase
+
+🚧 UI Mockup Phase
+
+## Author
+
+Carley Saeger
+
+University of St. Thomas
+
+SEIS 606 - Vibe Coding
+
+Fall 2026
