@@ -23,35 +23,13 @@ VolleyCentral brings everything together into a single, personalized experience.
 
 ## Core Features
 
-### MVP (Version 1)
+### Minimum Viable Product (Version 1)
 
-✅ Personalized Dashboard
-
-✅ Favorite Teams
-
-✅ Live Scores
-
-✅ Rankings
-
-✅ Team Standings
-
-✅ Match Schedules
-
-✅ Volleyball News Feed
+Personalized Dashboard, Favorite Teams, Live Scores, Rankings, Team Standings, Match Schedules, Volleyball News Feed
 
 ### Future Features
 
-🔜 Recruiting Tracker
-
-🔜 Transfer Portal Tracker
-
-🔜 Player Statistics
-
-🔜 AI Match Summaries
-
-🔜 Player Profiles
-
-🔜 Personalized Notifications
+Recruiting Tracker, Transfer Portal Tracker, Player Statistics, AI Match Summaries, Player Profiles, Personalized Notifications
 
 ## Supported Competitions
 
@@ -88,11 +66,11 @@ The platform serves as an aggregation and discovery tool and links users to orig
 
 ## Project Status
 
-🚧 Constitution Phase
+Constitution Phase
 
-🚧 Initial Specification Phase
+Initial Specification Phase
 
-🚧 UI Mockup Phase
+UI Mockup Phase
 
 ## Author
 
