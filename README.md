@@ -56,13 +56,10 @@ VolleyCentral uses publicly available information and respects all attribution r
 
 The platform serves as an aggregation and discovery tool and links users to original sources when appropriate.
 
-## Tech Stack (Planned)
-
-- TypeScript
-- React / Next.js
-- Tailwind CSS
-- OpenAPI
-- Responsive Web Design
+## Tech Stack
+- VS Code
+- GitHub Copilot
+- v0 by Vercel for UI Mockup
 
 ## Project Status
 
