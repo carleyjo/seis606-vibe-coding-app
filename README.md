@@ -31,6 +31,23 @@ Personalized Dashboard, Favorite Teams, Live Scores, Rankings, Team Standings, M
 
 Recruiting Tracker, Transfer Portal Tracker, Player Statistics, AI Match Summaries, Player Profiles, Personalized Notifications
 
+### Version 2
+- Favorite teams and players
+- Personalized news feed
+- Match reminders and notifications
+- AI-generated article summaries
+- Enhanced league filtering
+
+### Version 3
+- USA Volleyball news integration
+- Youth and club volleyball coverage
+- Recruiting resources and college commitments
+- Tournament and camp finder
+- Coaching and training content
+
+### Long-Term Vision
+VolleyCentral aims to become the central hub for volleyball fans, athletes, parents, coaches, and recruits by delivering personalized content based on user interests, experience level, and favorite leagues.
+
 ## Supported Competitions
 
 ### NCAA Women's Volleyball
@@ -59,15 +76,16 @@ The platform serves as an aggregation and discovery tool and links users to orig
 ## Tech Stack
 - VS Code
 - GitHub Copilot
-- v0 by Vercel for UI Mockup
 
 ## Project Status
 
-Constitution Phase
+Constitution Phase - Complete
 
-Initial Specification Phase
+Initial Specification Phase - Complete
 
-UI Mockup Phase
+UI Mockup Phase - Complete
+
+Task, Plan, and Implement Phase
 
 ## Author
 
