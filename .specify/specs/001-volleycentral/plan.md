@@ -11,7 +11,8 @@
 - Frontend-only application with routes for Home, Preferences, and the five league pages.
 - Browser localStorage is the only persistence mechanism in this release.
 - No backend, database, authentication, account service, network fetching, or live data.
-- League content is sample data returned through an asynchronous typed adapter.
+- Existing league content is hardcoded sample data; the implementation plan moves it behind an asynchronous typed adapter.
+- Vitest and React Testing Library are the planned unit and component-testing stack, with coverage reporting enabled for in-scope code.
 
 ## Clarification Decisions
 
@@ -23,13 +24,27 @@
 
 ## Architecture
 
-- `src/types.ts`: profiles, league IDs, preferences, and coverage types.
-- `src/officialSources.ts`: typed official source links keyed by league ID.
-- `src/dataAdapter.ts`: asynchronous adapter interface and sample-data implementation.
-- `src/lib/preferences.ts`: localStorage read, write, validation, and reset-message state.
-- `src/components/`: shared shell, navigation, data sections, profile teaching content, and sample-data labels.
-- `src/pages/`: Home, Preferences, and shared league-page rendering.
-- `src/App.tsx`: React Router route definitions.
+The current frontend structure is:
+
+| File or directory | Responsibility |
+|---|---|
+| `src/App.tsx` | React Router setup for Home, Preferences, parameterized league pages, and the fallback route. |
+| `src/components/SiteShell.tsx` | Shared navigation, route outlet, footer, and hero artwork. |
+| `src/components/LeagueSections.tsx` | Shared Scores, Schedules, Standings, and News rendering for league pages. |
+| `src/pages/HomePage.tsx` | Homepage hero, preference-aware league ordering, coverage links, and current homepage content. |
+| `src/pages/PreferencesPage.tsx` | Profile and preferred-league controls with localStorage persistence. |
+| `src/pages/LeaguePage.tsx` | Shared rendering for NCAA D1, NCAA D2, NCAA D3, LOVB, and MLV route parameters. |
+| `src/data.ts` | Current hardcoded sample league data and league route helpers. |
+| `src/lib/preferences.ts` | LocalStorage read and write helpers for profile and league preferences. |
+| `src/types.ts` | TypeScript profile, league, preference, and league-data types. |
+| `src/officialSources.ts` | Typed official source links keyed by league ID. |
+| `src/App.css` and `src/index.css` | Existing VolleyCentral branding, layout, responsive styles, focus styles, and page styles. |
+
+The planned adapter boundary adds:
+
+- `src/dataAdapter.ts`: the asynchronous adapter interface and sample-data adapter implementation.
+- `src/components/ProfileTeaching.tsx`: homepage-only profile teaching paragraphs and plain-language hints.
+- Test files colocated with the relevant modules or under `src/__tests__/`, using Vitest and React Testing Library.
 
 ## Implementation Phases
 
@@ -66,10 +81,37 @@
 
 ### Phase 5: Verification
 
-1. Add tests for adapter results, preference validation, reset behavior, ordering, and profile presentation rules.
-2. Add responsive and keyboard-focused UI tests for Home, Preferences, and league pages.
-3. Run lint, build, and the configured test and coverage commands.
-4. Confirm in-scope code meets the coverage requirement.
+1. Configure Vitest, React Testing Library, jsdom, and coverage reporting.
+2. Add tests for adapter results, preference validation, reset behavior, ordering, and profile presentation rules.
+3. Add responsive and keyboard-focused UI tests for Home, Preferences, and league pages.
+4. Run lint, build, Vitest, and coverage commands.
+5. Confirm in-scope code meets the coverage requirement.
+
+## Future Architecture
+
+The current release intentionally stops at a browser-only architecture. Future releases may add:
+
+- A backend API and database for durable user accounts and server-side preferences.
+- Authentication, session management, password handling, and server-side authorization.
+- An OpenAPI contract for account, preference, league, coverage, and news endpoints.
+- Live data adapters for NCAA, LOVB, and MLV behind the same asynchronous adapter interface as the sample-data adapter.
+- Source-specific caching, rate limiting, freshness metadata, retries, and unavailable states.
+- A legal and commercial integration path using official feeds, embeds, league partnerships, or licensed sports-data providers.
+
+Future adapters must not bypass league terms, robots policies, licensing requirements, or access controls.
+
+## Constitution Check
+
+| Principle or requirement | Status | Plan and rationale |
+|---|---|---|
+| Verified Quality | Met | Configure Vitest and React Testing Library with coverage for all in-scope adapter, preference, profile, routing, and accessibility behavior. |
+| Documented APIs | Excepted | No API or backend exists in this frontend-only release. Add OpenAPI when the future backend is introduced. |
+| Security and Authentication | Excepted | No accounts, credentials, sessions, or server-side user data exist in this release. Authentication and authorization are deferred with the backend. |
+| Simple Architecture | Met | Use React Router, localStorage, one sample-data adapter, explicit TypeScript types, and small shared components. |
+| Mobile-First, Findable Experience | Met | Preserve the existing responsive branding and verify keyboard use and 375px layouts for all primary workflows. |
+| Responsible Data Use | Met | Use sample data only, link to the approved official sources, use no scraping or network fetching, and display no league logos or marks. |
+| Input validation | Met | Validate profile and league choices before localStorage writes and show a reset message for invalid stored preferences. |
+| Coverage threshold | Deferred | The test and coverage tooling is planned for this submission; it must be configured and run before release. |
 
 ## Future Work
 
