@@ -33,5 +33,5 @@ const teachingByProfile: Partial<Record<Profile, TeachingContent>> = {
 export function ProfileTeaching({ profile }: { profile: Profile }) {
   const content = teachingByProfile[profile]
   if (!content) return null
-  return <section className="profile-teaching" aria-labelledby="teaching-title"><p className="eyebrow">For your profile</p><h2 id="teaching-title">A quick guide to the game.</h2><p className="draft-notice">Draft teaching copy - fact-check before submission.</p><div className="teaching-grid">{content.map((item) => <article key={item.title}><h3>{item.title}</h3><p>{item.text}</p></article>)}</div></section>
+  return <section className="profile-teaching" aria-labelledby="teaching-title"><p className="eyebrow">For your profile</p><h2 id="teaching-title">A quick guide to the game.</h2><div className="teaching-grid">{content.map((item) => <article key={item.title}><h3>{item.title}</h3><p>{item.text}</p></article>)}</div></section>
 }
