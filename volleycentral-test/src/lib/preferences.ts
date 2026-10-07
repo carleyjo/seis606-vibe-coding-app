@@ -6,11 +6,19 @@ export function readPreferences(): Preferences | null {
   const saved = localStorage.getItem(preferencesStorageKey)
   if (!saved) return null
   try {
-    return JSON.parse(saved) as Preferences
+    const parsed: unknown = JSON.parse(saved)
+    if (!isPreferences(parsed)) throw new Error('Invalid preferences')
+    return parsed
   } catch {
     localStorage.removeItem(preferencesStorageKey)
     return null
   }
+}
+
+function isPreferences(value: unknown): value is Preferences {
+  if (!value || typeof value !== 'object') return false
+  const candidate = value as Partial<Preferences>
+  return typeof candidate.profile === 'string' && leagueNames.includes(candidate.profile as (typeof leagueNames)[number]) && Array.isArray(candidate.leagues) && candidate.leagues.length > 0 && candidate.leagues.every((league) => typeof league === 'string' && leagueNames.includes(league as (typeof leagueNames)[number]))
 }
 
 export function savePreferences(preferences: Preferences) {
