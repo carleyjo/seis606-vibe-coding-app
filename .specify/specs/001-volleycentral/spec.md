@@ -17,6 +17,10 @@ All displayed competition information must be visibly labeled **Sample data**. O
 - The sample-data adapter uses an asynchronous interface so a future permitted live-data adapter can use the same boundary.
 - Scores, schedules, standings, and news each receive their own visible Sample data label.
 - Invalid or empty localStorage preferences show a visible reset message before the visitor continues with default homepage ordering.
+- Saved preferences filter the homepage, `/leagues` index, and league navigation to selected leagues only; visitors without saved preferences see all five leagues and a prompt to set preferences.
+- League sample data is day-of/current scores, weekly news grouped under `This week`, upcoming schedules with sample `Where to watch` values, and top-ten standings.
+- Profile quick guides may include plain-text Learn more links to approved educational resources with new-tab and rel attributes.
+- The header keeps Preferences but has no Personalize button; the footer shows only `Instagram (coming soon)` as non-link text.
 - This clarification is synchronized across `spec.md`, `plan.md`, and `tasks.md`.
 
 ## Current Status vs. Submission Scope
@@ -31,6 +35,7 @@ The verified implementation currently includes:
 - Homepage ordering based on saved profile and league preferences.
 - League pages with hardcoded sample scores, schedules, standings, and news items.
 - An Official sources section on each league page with plain-text external links.
+- A `/leagues` index page and a league switcher on each league page.
 
 The implementation still needs the following work for the submission scope:
 
@@ -39,6 +44,10 @@ The implementation still needs the following work for the submission scope:
 - Add homepage-only profile-driven teaching content and plain-language hints.
 - Make each Scores, Schedules, Standings, and News section visibly label its content as Sample data.
 - Show a reset message when saved localStorage preferences are invalid or empty.
+- Filter the homepage, `/leagues` index, and league switcher to saved preferred leagues only; show all five with a setup prompt when no preferences exist.
+- Replace current sample data shapes with day-of scores, weekly news, upcoming schedules with sample Where to watch values, and top-ten standings.
+- Add approved Learn more links to the applicable profile quick guides.
+- Remove the header Personalize button and replace the footer's social links with non-link text: `Instagram (coming soon)`.
 - Verify keyboard accessibility and usability at 375px width.
 
 ## MVP Scope
@@ -66,6 +75,7 @@ The application keeps these routes:
 
 - `/`: personalized homepage.
 - `/preferences`: profile and preferred league selection.
+- `/leagues`: selected-league index, or all five leagues when no preferences exist.
 - `/leagues/ncaa-d1`: NCAA Division I coverage.
 - `/leagues/ncaa-d2`: NCAA Division II coverage.
 - `/leagues/ncaa-d3`: NCAA Division III coverage.
@@ -99,7 +109,9 @@ Acceptance criteria:
 3. The user must select one profile and at least one league before saving.
 4. Preferences are saved in browser localStorage.
 5. Returning to the homepage reads the saved preferences and places preferred league content first.
-6. No email, password, account, or authentication step is required in this release.
+6. When saved preferences exist, the homepage, `/leagues` index, and league switcher show only the selected leagues.
+7. When no saved preferences exist, the homepage and `/leagues` index show all five leagues and prompt the visitor to set preferences.
+8. No email, password, account, or authentication step is required in this release.
 
 ### User Story 3: Use Profile-Driven Content
 
@@ -141,6 +153,30 @@ Acceptance criteria:
 5. Links are keyboard focusable with a visible focus style.
 6. Link text wraps within a 375px viewport.
 7. The line above the links reads: `Live scores, standings, and news are on the official sites. VolleyCentral currently shows sample data only.`
+
+### User Story 5: Review Current Sample Coverage
+
+As a visitor, I want clearly scoped sample coverage so that I can tell what each league page represents.
+
+Acceptance criteria:
+
+1. News shows a handful of weekly sample items grouped under `This week`.
+2. Schedules show upcoming sample matches and a `Where to watch` field explicitly labeled as sample information.
+3. Standings show the top ten sample teams, not only the top three.
+4. Scores show only day-of/current sample matches: live, final today, or upcoming today.
+5. Every section remains visibly labeled `Sample data`.
+
+### User Story 6: Learn More From Quick Guides
+
+As a visitor using a beginner or casual profile, I want optional educational links so that I can learn more from an approved external source.
+
+Acceptance criteria:
+
+1. Beginner Fan, Youth Athlete, and Casual Fan quick guides may show plain-text Learn more links.
+2. NCAA links use `https://www.ncaa.org/championships/playing-rules/womens-volleyball-playing-rules/`.
+3. LOVB links use `https://www.lovb.com/pro-101`.
+4. MLV links use `https://provolleyball.com/statistics-guide`.
+5. Each link uses `target="_blank"` and `rel="noopener noreferrer"` and has visible keyboard focus.
 
 ## Profile and Preference Storage
 
@@ -195,6 +231,7 @@ The application must not invent alternative source URLs for these league pages.
 - Teaching text must be original and written in plain English.
 - The application must not require network access for sample data.
 - No secrets, credentials, tokens, or private configuration may be committed.
+- Sample broadcast information must be labeled sample; real broadcast information is deferred.
 
 ## Future Releases
 
@@ -211,6 +248,7 @@ The following items are intentionally not part of this release and must not be d
 ### Data and Personalization
 
 - Live NCAA, LOVB, and MLV integrations.
+- Real broadcast information and broadcast integrations.
 - Favorites and following teams.
 - Notifications and reminders.
 - AI-generated match and article summaries.

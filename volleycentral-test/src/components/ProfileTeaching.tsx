@@ -1,4 +1,5 @@
 import type { Profile } from '../types'
+import { rulesSources } from '../officialSources'
 
 type TeachingContent = { title: string; text: string }[]
 
@@ -33,5 +34,6 @@ const teachingByProfile: Partial<Record<Profile, TeachingContent>> = {
 export function ProfileTeaching({ profile }: { profile: Profile }) {
   const content = teachingByProfile[profile]
   if (!content) return null
-  return <section className="profile-teaching" aria-labelledby="teaching-title"><p className="eyebrow">For your profile</p><h2 id="teaching-title">A quick guide to the game.</h2><div className="teaching-grid">{content.map((item) => <article key={item.title}><h3>{item.title}</h3><p>{item.text}</p></article>)}</div></section>
+  const uniqueRulesSources = Object.values(rulesSources).filter((source, index, sources) => sources.findIndex((candidate) => candidate.url === source.url) === index)
+  return <section className="profile-teaching" aria-labelledby="teaching-title"><p className="eyebrow">For your profile</p><h2 id="teaching-title">A quick guide to the game.</h2><div className="teaching-grid">{content.map((item) => <article key={item.title}><h3>{item.title}</h3><p>{item.text}</p></article>)}</div><div className="learn-more-links"><p className="eyebrow">Learn more</p>{uniqueRulesSources.map((source) => <a href={source.url} target="_blank" rel="noopener noreferrer" key={source.url}>Learn more about the rules - {source.label} <span>(opens in new tab)</span></a>)}</div></section>
 }

@@ -8,7 +8,7 @@
 ## Verified Existing Implementation
 
 - [x] T001 React Router routes exist for `/`, `/preferences`, and all five league pages in [src/App.tsx](../../../volleycentral-test/src/App.tsx).
-- [x] T002 Profile and preferred-league preferences are selectable, saved in localStorage, and used to order homepage league content in [src/pages/PreferencesPage.tsx](../../../volleycentral-test/src/pages/PreferencesPage.tsx), [src/lib/preferences.ts](../../../volleycentral-test/src/lib/preferences.ts), and [src/pages/HomePage.tsx](../../../volleycentral-test/src/pages/HomePage.tsx).
+- [ ] T002 Profile and preferred-league preferences are selectable, saved in localStorage, and filter the homepage, `/leagues` index, and league switcher to selected leagues only in [src/pages/PreferencesPage.tsx](../../../volleycentral-test/src/pages/PreferencesPage.tsx), [src/lib/preferences.ts](../../../volleycentral-test/src/lib/preferences.ts), [src/pages/HomePage.tsx](../../../volleycentral-test/src/pages/HomePage.tsx), and [src/pages/LeaguesPage.tsx](../../../volleycentral-test/src/pages/LeaguesPage.tsx).
 - [x] T003 Shared league pages render NCAA D1, NCAA D2, NCAA D3, LOVB, and MLV content in [src/pages/LeaguePage.tsx](../../../volleycentral-test/src/pages/LeaguePage.tsx) and [src/components/LeagueSections.tsx](../../../volleycentral-test/src/components/LeagueSections.tsx).
 - [x] T004 Official-source links are typed and rendered on each league page in [src/officialSources.ts](../../../volleycentral-test/src/officialSources.ts) and [src/components/LeagueSections.tsx](../../../volleycentral-test/src/components/LeagueSections.tsx).
 - [x] T005 Current league scores, schedules, standings, and news are represented as a hardcoded sample dataset in [src/data.ts](../../../volleycentral-test/src/data.ts).
@@ -43,7 +43,19 @@
 - [x] T025 Keep Super Fan's homepage view dense and free of teaching text and plain-language hints.
 - [ ] T026 Verify profile changes update homepage presentation without requiring an account.
 
-## Phase 4: Testing and Documentation
+## Phase 4: Preference Filtering and Sample Coverage
+
+- [ ] T038 Filter homepage, `/leagues` index, and league switcher to saved preferred leagues only.
+- [ ] T039 Show all five leagues and a setup prompt when no preferences are saved.
+- [ ] T040 Keep scores limited to live, final-today, and upcoming-today sample matches.
+- [ ] T041 Group a handful of weekly sample news items under `This week`.
+- [ ] T042 Add sample `Where to watch` fields to upcoming schedules and label them as sample information.
+- [ ] T043 Expand every sample standings table to the top ten teams.
+- [ ] T044 Add approved plain-text Learn more links to the Beginner Fan, Youth Athlete, and Casual Fan quick guides using the specified NCAA, LOVB, and MLV URLs.
+- [ ] T045 Remove the header Personalize button and replace footer social links with non-link `Instagram (coming soon)` text.
+- [ ] T046 Verify the league switcher uses `aria-current="page"`, visible focus, and no horizontal scrolling at 375px.
+
+## Phase 5: Testing and Documentation
 
 - [ ] T027 Configure Vitest, jsdom, React Testing Library, and coverage reporting.
 - [ ] T028 Add unit tests for the sample-data adapter, preferences validation, localStorage reset behavior, and homepage ordering.
@@ -53,7 +65,7 @@
 - [ ] T032 Create a testing plan and test log documenting commands, results, coverage, and known gaps.
 - [ ] T033 Run lint, build, Vitest, and coverage; resolve failures and confirm in-scope coverage meets the requirement.
 
-## Phase 5: Release Review
+## Phase 6: Release Review
 
 - [ ] T034 Confirm all sample content is visibly labeled and no network data fetching or scraping exists.
 - [ ] T035 Confirm no league logos, school marks, or decorative source images were introduced.

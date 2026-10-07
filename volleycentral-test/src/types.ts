@@ -15,7 +15,7 @@ export type LeagueData = {
   detail: string
   tone: string
   scores: { matchup: string; result: string; status: string }[]
-  schedules: { date: string; matchup: string; venue: string }[]
+  schedules: { date: string; matchup: string; venue: string; whereToWatch: string }[]
   standings: { team: string; record: string; points: string }[]
   news: { title: string; source: string; age: string }[]
 }

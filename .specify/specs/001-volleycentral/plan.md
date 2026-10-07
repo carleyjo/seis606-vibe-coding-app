@@ -20,6 +20,10 @@
 - The adapter interface is asynchronous to preserve a future live-data boundary.
 - Scores, Schedules, Standings, and News each receive a visible `Sample data` label.
 - Invalid or empty localStorage preferences show a reset message, then use default homepage ordering.
+- Saved preferences filter the homepage, `/leagues` index, and league switcher to selected leagues only; no preferences show all five plus a setup prompt.
+- Scores are day-of/current only, news is weekly under `This week`, schedules include sample `Where to watch`, and standings include the top ten teams.
+- Beginner Fan, Youth Athlete, and Casual Fan quick guides may include approved plain-text Learn more links.
+- The header keeps Preferences without a Personalize button; the footer uses only non-link `Instagram (coming soon)` text.
 - This plan is synchronized with the clarified spec and tasks.
 
 ## Architecture
@@ -34,6 +38,7 @@ The current frontend structure is:
 | `src/pages/HomePage.tsx` | Homepage hero, preference-aware league ordering, coverage links, and current homepage content. |
 | `src/pages/PreferencesPage.tsx` | Profile and preferred-league controls with localStorage persistence. |
 | `src/pages/LeaguePage.tsx` | Shared rendering for NCAA D1, NCAA D2, NCAA D3, LOVB, and MLV route parameters. |
+| `src/pages/LeaguesPage.tsx` | Preference-filtered index of all five leagues with links and descriptions. |
 | `src/data.ts` | Current hardcoded sample league data and league route helpers. |
 | `src/lib/preferences.ts` | LocalStorage read and write helpers for profile and league preferences. |
 | `src/types.ts` | TypeScript profile, league, preference, and league-data types. |
@@ -62,6 +67,7 @@ The planned adapter boundary adds:
 3. Validate one profile and at least one league before saving.
 4. Save and read only `profile` and `leagues` in localStorage.
 5. Detect invalid or empty saved values, show a reset message, clear the invalid state, and use default ordering.
+6. Filter homepage, `/leagues`, and league switcher content to selected leagues; show all five and a setup prompt when there are no preferences.
 
 ### Phase 3: Profile-Driven Homepage
 
@@ -72,14 +78,24 @@ The planned adapter boundary adds:
 5. Define the specified concise or dense treatment for High School Athlete, College Athlete, Parent, and Coach.
 6. Keep all teaching content on the homepage only.
 7. Order homepage league content from saved preferred leagues.
+8. Add approved Learn more links to the Beginner Fan, Youth Athlete, and Casual Fan quick guides.
 
-### Phase 4: Accessibility and Responsive Review
+### Phase 4: League Sample Content and Navigation
+
+1. Keep Scores limited to live, final-today, and upcoming-today sample matches.
+2. Group a handful of weekly sample news items under `This week`.
+3. Add sample `Where to watch` fields to upcoming schedules and label them clearly.
+4. Expand each sample standings table to the top ten teams.
+5. Keep the `/leagues` index and league switcher preference-filtered and keyboard accessible.
+6. Remove the header Personalize button and replace social footer links with non-link `Instagram (coming soon)` text.
+
+### Phase 5: Accessibility and Responsive Review
 
 1. Confirm keyboard navigation and visible focus states for router links, preference controls, and official source links.
 2. Verify all four sample-data sections and teaching content wrap at 375px without horizontal scrolling.
 3. Preserve plain-text official source links without logos or league marks.
 
-### Phase 5: Verification
+### Phase 6: Verification
 
 1. Configure Vitest, React Testing Library, jsdom, and coverage reporting.
 2. Add tests for adapter results, preference validation, reset behavior, ordering, and profile presentation rules.
@@ -95,6 +111,7 @@ The current release intentionally stops at a browser-only architecture. Future r
 - Authentication, session management, password handling, and server-side authorization.
 - An OpenAPI contract for account, preference, league, coverage, and news endpoints.
 - Live data adapters for NCAA, LOVB, and MLV behind the same asynchronous adapter interface as the sample-data adapter.
+- Real broadcast information and broadcast integrations.
 - Source-specific caching, rate limiting, freshness metadata, retries, and unavailable states.
 - A legal and commercial integration path using official feeds, embeds, league partnerships, or licensed sports-data providers.
 

@@ -2,7 +2,7 @@ import { NavLink, Outlet } from 'react-router-dom'
 import volleyballLogo from '../assets/Volleyball-PNG-Image.png'
 
 export function SiteShell() {
-  return <><nav className="site-nav" aria-label="Main navigation"><NavLink className="wordmark" to="/" aria-label="VolleyCentral home"><span className="wordmark-mark">V</span>VolleyCentral</NavLink><div className="nav-links"><NavLink to="/">Home</NavLink><NavLink to="/leagues/ncaa-d1">Leagues</NavLink><NavLink to="/preferences">Preferences</NavLink></div><NavLink className="nav-button" to="/preferences">Personalize <span aria-hidden="true">↗</span></NavLink></nav><main><Outlet /></main><footer id="about"><span>VolleyCentral © 2026</span><span>Made for the love of the game.</span><span>Instagram&nbsp;&nbsp; / &nbsp;&nbsp;X</span></footer></>
+  return <><nav className="site-nav" aria-label="Main navigation"><NavLink className="wordmark" to="/" aria-label="VolleyCentral home"><span className="wordmark-mark">V</span>VolleyCentral</NavLink><div className="nav-links"><NavLink to="/" end>Home</NavLink><NavLink to="/leagues">Leagues</NavLink><NavLink to="/preferences">Preferences</NavLink></div></nav><main><Outlet /></main><footer id="about"><span>VolleyCentral © 2026</span><span>Made for the love of the game.</span><span>Instagram (coming soon)</span></footer></>
 }
 
 export function HeroArt() {

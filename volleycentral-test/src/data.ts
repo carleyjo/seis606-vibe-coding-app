@@ -1,11 +1,38 @@
 import type { LeagueData, LeagueName } from './types'
 
+const sampleScores = (label: string) => [
+  { matchup: `${label} Sample Team A 2  ·  ${label} Sample Team B 2`, result: 'Set 5', status: 'Live today' },
+  { matchup: `${label} Sample Team C 3  ·  ${label} Sample Team D 1`, result: 'Final today', status: 'Today' },
+  { matchup: `${label} Sample Team E  ·  ${label} Sample Team F`, result: 'Upcoming today', status: 'Today' },
+]
+
+const sampleSchedules = (label: string) => [
+  { date: 'Today', matchup: `${label} Sample Team E vs ${label} Sample Team F`, venue: 'Sample Arena', whereToWatch: 'Sample listing: check official site' },
+  { date: 'Tomorrow', matchup: `${label} Sample Team G vs ${label} Sample Team H`, venue: 'Sample Events Center', whereToWatch: 'Sample listing: check official site' },
+]
+
+const sampleStandings = (label: string) => Array.from({ length: 10 }, (_, index) => ({
+  team: `${label} Sample Team ${String(index + 1).padStart(2, '0')}`,
+  record: `${19 - index}-${index + 1}`,
+  points: `${570 - index * 24}`,
+}))
+
+const sampleNews = (label: string) => [
+  { title: `${label} sample news item one`, source: 'Official sample source', age: 'This week' },
+  { title: `${label} sample news item two`, source: 'Official sample source', age: 'This week' },
+  { title: `${label} sample news item three`, source: 'Official sample source', age: 'This week' },
+]
+
+function makeLeague(name: LeagueName, slug: string, detail: string, tone: string): LeagueData {
+  return { name, slug, detail, tone, scores: sampleScores(name), schedules: sampleSchedules(name), standings: sampleStandings(name), news: sampleNews(name) }
+}
+
 export const leagueData: Record<LeagueName, LeagueData> = {
-  'NCAA D1': { name: 'NCAA D1', slug: 'ncaa-d1', detail: 'The highest level of college volleyball', tone: 'coral', scores: [{ matchup: 'Nebraska 3  ·  Stanford 1', result: 'Final', status: 'Tonight' }, { matchup: 'Texas 2  ·  Wisconsin 2', result: 'Set 5', status: 'Live' }], schedules: [{ date: 'Oct 04', matchup: 'Louisville at Pittsburgh', venue: 'Petersen Events Center' }, { date: 'Oct 05', matchup: 'Penn State at Ohio State', venue: 'Covelli Center' }], standings: [{ team: 'Nebraska', record: '18-1', points: '540' }, { team: 'Pittsburgh', record: '17-2', points: '510' }, { team: 'Louisville', record: '16-3', points: '480' }], news: [{ title: 'Top-ranked teams prepare for another packed weekend', source: 'NCAA.com', age: '2h ago' }, { title: 'What to watch as conference play heats up', source: 'VolleyCentral desk', age: 'Yesterday' }] },
-  'NCAA D2': { name: 'NCAA D2', slug: 'ncaa-d2', detail: 'Big matchups, bigger stories', tone: 'pink', scores: [{ matchup: 'Cal State LA 3  ·  Cal Poly Pomona 0', result: 'Final', status: 'Tonight' }, { matchup: 'Tampa 1  ·  West Texas A&M 2', result: 'Set 4', status: 'Live' }], schedules: [{ date: 'Oct 04', matchup: 'Ferris State at Grand Valley', venue: 'Fieldhouse Arena' }, { date: 'Oct 06', matchup: 'MSU Denver at Regis', venue: 'Regis Fieldhouse' }], standings: [{ team: 'Tampa', record: '19-1', points: '570' }, { team: 'Ferris State', record: '17-2', points: '510' }, { team: 'Cal State LA', record: '16-3', points: '480' }], news: [{ title: 'Conference races tighten across Division II', source: 'NCAA.com', age: '4h ago' }, { title: 'The teams making a late-season climb', source: 'AVCA', age: '2d ago' }] },
-  'NCAA D3': { name: 'NCAA D3', slug: 'ncaa-d3', detail: 'The game, played with purpose', tone: 'lavender', scores: [{ matchup: 'Cal Lutheran 3  ·  Claremont-M-S 2', result: 'Final', status: 'Tonight' }, { matchup: 'Juniata 3  ·  Christopher Newport 1', result: 'Final', status: 'Yesterday' }], schedules: [{ date: 'Oct 04', matchup: 'Emory at Berry', venue: 'Ford Gymnasium' }, { date: 'Oct 05', matchup: 'Trinity at Southwestern', venue: 'Corbin J. Robertson Center' }], standings: [{ team: 'Juniata', record: '22-0', points: '660' }, { team: 'Emory', record: '19-2', points: '570' }, { team: 'Berry', record: '18-3', points: '540' }], news: [{ title: 'Division III delivers another weekend of rivalries', source: 'NCAA.com', age: '5h ago' }, { title: 'A closer look at the changing regional picture', source: 'D3volleyball.com', age: '3d ago' }] },
-  LOVB: { name: 'LOVB', slug: 'lovb', detail: 'The next generation of pro', tone: 'sun', scores: [{ matchup: 'Houston 3  ·  Salt Lake 1', result: 'Final', status: 'Tonight' }, { matchup: 'Atlanta 2  ·  Madison 1', result: 'Set 4', status: 'Live' }], schedules: [{ date: 'Oct 08', matchup: 'Austin at Omaha', venue: 'CHI Health Center' }, { date: 'Oct 10', matchup: 'Houston at Madison', venue: 'Acrisure Arena' }], standings: [{ team: 'Houston', record: '10-2', points: '30' }, { team: 'Atlanta', record: '9-3', points: '27' }, { team: 'Omaha', record: '8-4', points: '24' }], news: [{ title: 'LOVB clubs announce new community programs', source: 'LOVB.com', age: '1h ago' }, { title: 'The next wave of professional volleyball', source: 'VolleyCentral desk', age: 'Yesterday' }] },
-  MLV: { name: 'MLV', slug: 'mlv', detail: 'Major League Volleyball', tone: 'sky', scores: [{ matchup: 'Orlando 3  ·  Columbus 2', result: 'Final', status: 'Tonight' }, { matchup: 'Grand Rapids 0  ·  San Diego 3', result: 'Final', status: 'Yesterday' }], schedules: [{ date: 'Oct 11', matchup: 'Columbus at Grand Rapids', venue: 'Van Andel Arena' }, { date: 'Oct 12', matchup: 'Orlando at San Diego', venue: 'Viejas Arena' }], standings: [{ team: 'San Diego', record: '11-2', points: '33' }, { team: 'Columbus', record: '9-4', points: '27' }, { team: 'Orlando', record: '8-5', points: '24' }], news: [{ title: 'MLV schedule brings new rivalries to the coast', source: 'ProVolleyball.com', age: '3h ago' }, { title: 'Inside the season-opening power shift', source: 'VolleyCentral desk', age: '2d ago' }] },
+  'NCAA D1': makeLeague('NCAA D1', 'ncaa-d1', 'The highest level of college volleyball', 'coral'),
+  'NCAA D2': makeLeague('NCAA D2', 'ncaa-d2', 'Big matchups, bigger stories', 'pink'),
+  'NCAA D3': makeLeague('NCAA D3', 'ncaa-d3', 'The game, played with purpose', 'lavender'),
+  LOVB: makeLeague('LOVB', 'lovb', 'The next generation of pro', 'sun'),
+  MLV: makeLeague('MLV', 'mlv', 'Major League Volleyball', 'sky'),
 }
 
 export function leaguePath(name: LeagueName) {
