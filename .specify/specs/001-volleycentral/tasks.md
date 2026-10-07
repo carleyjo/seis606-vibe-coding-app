@@ -3,67 +3,60 @@
 **Feature**: `001-volleycentral`
 **Plan**: [plan.md](./plan.md)
 **Specification**: [spec.md](./spec.md)
+**Submission**: October 21, 2026
 
-## Phase 1: Foundation
+## Phase 1: Data Boundary
 
-- [ ] T001 Choose the minimal backend and persistence approach compatible with the existing React/Vite client.
-- [ ] T002 Add local environment configuration with fake example values and document setup commands.
-- [ ] T003 Add shared TypeScript constants and schemas for volleyball profiles, supported leagues, API responses, and data states.
-- [ ] T004 Define the initial API contract in OpenAPI for authentication, preferences, homepage, leagues, scores, schedules, standings, and news links.
-- [ ] T005 Configure the test runner, integration-test setup, and coverage reporting with an 80% minimum threshold.
+- [ ] T001 Define async TypeScript adapter types for scores, schedules, standings, and attributed news links.
+- [ ] T002 Implement the sample-data adapter as the only adapter implementation.
+- [ ] T003 Move the current hardcoded league dataset behind the sample-data adapter.
+- [ ] T004 Ensure each Scores, Schedules, Standings, and News section visibly says `Sample data`.
+- [ ] T005 Verify official source URLs remain limited to the five approved URLs.
 
-## Phase 2: Accounts and Personalization
+## Phase 2: Local Preferences
 
-- [ ] T006 Implement the `User` persistence model with unique account identity, password hash, timestamps, and server-side validation.
-- [ ] T007 Implement registration with validation, duplicate-account handling, secure password hashing, and authenticated session creation.
-- [ ] T008 Implement login, logout, session retrieval, and unauthenticated error responses.
-- [ ] T009 Implement server-side authorization so users can only read or update their own preferences.
-- [ ] T010 Implement the supported volleyball profile values: Youth Athlete, High School Athlete, College Athlete, Parent, Coach, Beginner Fan, Casual Fan, and Super Fan.
-- [ ] T011 Implement the supported preferred league values: NCAA D1, NCAA D2, NCAA D3, LOVB, and MLV.
-- [ ] T012 Implement `GET /api/me` and `PUT /api/me/preferences` with one profile, at least one league, allowlisted values, and persistence.
-- [ ] T013 Build new-user account and preference onboarding UI with accessible labels, validation messages, loading states, and retryable errors.
-- [ ] T014 Build preference editing UI for returning authenticated users.
-- [ ] T015 Add tests for registration, login, invalid inputs, duplicate accounts, session handling, preference validation, and cross-user authorization.
+- [ ] T006 Remove the email field from the Preferences page and preference type.
+- [ ] T007 Keep the eight profile options and five preferred-league options.
+- [ ] T008 Validate that a profile and at least one league are selected before saving.
+- [ ] T009 Persist and read only profile and league preferences from localStorage.
+- [ ] T010 Detect invalid or empty localStorage preferences, show a reset message, clear the invalid value, and use default homepage ordering.
 
-## Phase 3: MVP Coverage
+## Phase 3: Homepage Profile Experience
 
-- [ ] T016 Implement the supported league catalog and competition availability metadata for NCAA D1, NCAA D2, NCAA D3, LOVB, and MLV.
-- [ ] T017 Implement source adapter interfaces and configuration for league data providers.
-- [ ] T018 Implement scores data with live, final, and upcoming match states, source attribution, and last-updated timestamps.
-- [ ] T019 Implement schedules data by league and date.
-- [ ] T020 Implement standings data by league and season.
-- [ ] T021 Implement attributed news links with title, summary, source, URL, publication date, and league context.
-- [ ] T022 Add caching, bounded polling, backoff, and explicit delayed or unavailable states for source data.
-- [ ] T023 Build league navigation and responsive views for scores, schedules, standings, and news links.
-- [ ] T024 Add endpoint and transformation tests for all five leagues and each MVP data view.
+- [ ] T011 Add original teaching paragraphs for scoring, rotations, positions, and libero concepts.
+- [ ] T012 Add all four teaching topics and plain-language hints for Beginner Fan.
+- [ ] T013 Add all four teaching topics with encouraging, age-appropriate language for Youth Athlete.
+- [ ] T014 Add concise hints for High School Athlete, College Athlete, Parent, and Coach according to the specification.
+- [ ] T015 Add light scoring and libero hints for Casual Fan.
+- [ ] T016 Add the dense homepage view without teaching text for Super Fan.
+- [ ] T017 Keep teaching paragraphs and hints on the homepage only.
+- [ ] T018 Order homepage league content by saved preferred leagues.
 
-## Phase 4: Personalized Homepage
+## Phase 4: Accessibility and Responsive Behavior
 
-- [ ] T025 Implement deterministic homepage prioritization rules based on the user's volleyball profile and preferred leagues.
-- [ ] T026 Implement `GET /api/home` for authenticated users with prioritized scores, schedules, standings, and news links.
-- [ ] T027 Implement the authenticated homepage UI using the personalized response and clearly labeling each league and source.
-- [ ] T028 Implement public homepage defaults and a clear setup path for users without saved preferences.
-- [ ] T029 Add loading, empty, delayed, unavailable, and recoverable error states for personalized homepage sections.
-- [ ] T030 Add responsive and keyboard-accessible navigation for onboarding, preferences, filters, and homepage content.
-- [ ] T031 Add integration tests proving a new user is prompted for profile and leagues and a returning user receives prioritized homepage content.
+- [ ] T019 Verify keyboard navigation for all router links, preference controls, and external source links.
+- [ ] T020 Verify visible focus styles for keyboard users.
+- [ ] T021 Verify official source links wrap without horizontal scrolling at 375px.
+- [ ] T022 Verify each sample-data section and homepage teaching content remain readable at 375px.
+- [ ] T023 Confirm no league logos, school marks, or decorative source images are introduced.
 
-## Phase 5: Quality and Release Readiness
+## Phase 5: Testing and Submission Review
 
-- [ ] T032 Add unit tests for schemas, prioritization rules, source transformations, and freshness/state handling.
-- [ ] T033 Add UI tests for onboarding, preference editing, league views, mobile layouts, focus states, and error states.
-- [ ] T034 Verify every news item renders as an attributed summary and link without republishing source articles.
-- [ ] T035 Verify OpenAPI documentation matches implemented routes, parameters, schemas, authentication, and error responses.
-- [ ] T036 Run lint, build, tests, and coverage; resolve failures and confirm coverage exceeds 80%.
-- [ ] T037 Review secret handling, authorization, source terms, rate limits, responsive behavior, and acceptance criteria before release.
+- [ ] T024 Add adapter and sample-data labeling tests.
+- [ ] T025 Add preference validation, localStorage, reset-message, and ordering tests.
+- [ ] T026 Add profile presentation tests for all eight profile types.
+- [ ] T027 Add keyboard and responsive UI tests for Home, Preferences, and league pages.
+- [ ] T028 Run lint, build, tests, and coverage; resolve failures.
+- [ ] T029 Review the submission against the legal-risk notes and confirm no scraping or network fetching exists.
 
-## Dependencies and Execution Order
+## Future Release Boundary
 
-1. Complete T001-T005 before implementing server routes or tests.
-2. Complete T006-T015 before personalized homepage work in T025-T031.
-3. T016-T024 can proceed after the foundation and in parallel with account UI work.
-4. T025-T031 depend on both saved preferences and MVP league data.
-5. Complete T032-T037 after the feature slices are implemented; T035 and T036 are release gates.
+Accounts and server-side preferences, live NCAA/LOVB/MLV integrations, backend and OpenAPI, favorites, notifications, AI summaries, recruiting and transfer tracking, USA Volleyball, youth and club coverage, recruiting resources, tournament and camp finding, coaching content, and the commercial path remain future work.
 
-## MVP Boundary
+## Dependencies
 
-The MVP includes T016-T024, account creation and authentication from T006-T009, profile and preferred league selection from T010-T012, and personalized homepage work from T025-T031. Favorite teams and players, following teams, favorite-based personalized dashboards, personalized news feeds, notifications, recruiting updates, transfer portal updates, AI-generated match summaries, AI-generated article summaries, USA Volleyball integration, youth and club coverage, recruiting resources, tournament and camp finding, and coaching/training content remain future-release work.
+1. Complete T001-T005 before using the adapter in page components.
+2. Complete T006-T010 before finalizing homepage preference behavior.
+3. Complete T011-T018 before profile presentation review.
+4. Complete T019-T023 before responsive acceptance review.
+5. Complete T024-T029 before submission.

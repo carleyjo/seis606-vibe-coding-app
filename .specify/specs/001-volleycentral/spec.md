@@ -11,6 +11,14 @@ VolleyCentral is a front-end-only React application that brings NCAA Division I,
 
 All displayed competition information must be visibly labeled **Sample data**. Official-source links are provided for users who need current information.
 
+## Clarifications — 2026-10-07
+
+- Profile teaching content appears on the homepage only. League pages keep their sample-data sections without teaching paragraphs.
+- The sample-data adapter uses an asynchronous interface so a future permitted live-data adapter can use the same boundary.
+- Scores, schedules, standings, and news each receive their own visible Sample data label.
+- Invalid or empty localStorage preferences show a visible reset message before the visitor continues with default homepage ordering.
+- This clarification is synchronized across `spec.md`, `plan.md`, and `tasks.md`.
+
 ## Current Status vs. Submission Scope
 
 ### Status vs. Implementation — 2026-10-07
@@ -27,9 +35,10 @@ The verified implementation currently includes:
 The implementation still needs the following work for the submission scope:
 
 - Remove the email field from the preferences flow because this release has no accounts.
-- Route all sample data through a small typed adapter interface with a sample-data adapter as its only implementation.
-- Add profile-driven teaching content and plain-language hints.
-- Make every in-scope view visibly label its content as Sample data.
+- Route all sample data through a small typed asynchronous adapter interface with a sample-data adapter as its only implementation.
+- Add homepage-only profile-driven teaching content and plain-language hints.
+- Make each Scores, Schedules, Standings, and News section visibly label its content as Sample data.
+- Show a reset message when saved localStorage preferences are invalid or empty.
 - Verify keyboard accessibility and usability at 375px width.
 
 ## MVP Scope
@@ -96,6 +105,8 @@ Acceptance criteria:
 
 As a visitor, I want the amount of explanation to match my profile so that the sample data is useful without making the page unnecessarily dense.
 
+The teaching paragraphs and plain-language hints in this story appear on the homepage only. League pages retain their normal sample-data sections without teaching paragraphs.
+
 The exact profile behavior is:
 
 - **Beginner Fan**: Show four short teaching paragraphs covering scoring, rotations, positions, and the libero. Add plain-language hints beside relevant scores, schedules, standings, and news areas.
@@ -138,11 +149,11 @@ Preferences are stored only in browser localStorage for this release. The stored
 - `profile`: one supported profile.
 - `leagues`: one or more supported leagues.
 
-No email address, password, user account, authentication token, or server-side record is stored. Invalid or unreadable localStorage data should fall back to the default unpersonalized homepage.
+No email address, password, user account, authentication token, or server-side record is stored. Invalid or unreadable localStorage data should show a reset message and then fall back to the default unpersonalized homepage.
 
 ## Data Access Design
 
-All sample coverage data must be read through a small typed adapter interface. The sample-data adapter is the only implementation in this release.
+All sample coverage data must be read through a small typed asynchronous adapter interface. The sample-data adapter is the only implementation in this release.
 
 The adapter should provide sample data for:
 
@@ -151,7 +162,7 @@ The adapter should provide sample data for:
 - Standings.
 - Attributed news links.
 
-The adapter must not fetch from the network. The UI must clearly identify adapter output as Sample data. A later release may add permitted data adapters, but that is not part of this submission.
+The adapter must not fetch from the network. The UI must clearly identify each Scores, Schedules, Standings, and News section as Sample data. A later release may add permitted data adapters, but that is not part of this submission.
 
 ## Official Sources
 

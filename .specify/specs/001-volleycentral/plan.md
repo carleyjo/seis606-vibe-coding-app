@@ -3,110 +3,80 @@
 **Feature**: `001-volleycentral`
 **Specification**: [spec.md](./spec.md)
 **Status**: Draft
+**Submission**: October 21, 2026
 
 ## Technical Context
 
-- **Current client**: React 19 + TypeScript + Vite 8 in `volleycentral-test`.
-- **Current UI state**: A static single-page hero and league coverage mockup in `src/App.tsx` and `src/App.css`.
-- **Persistence**: No authentication, server, database, or API layer currently exists.
-- **MVP data**: NCAA D1, NCAA D2, NCAA D3, LOVB, and MLV coverage with scores, schedules, standings, and attributed news links.
-- **Testing**: Existing package scripts provide build and lint commands; feature tests and coverage tooling must be added with the chosen application/data stack.
+- React 19, TypeScript, Vite, and React Router.
+- Frontend-only application with routes for Home, Preferences, and the five league pages.
+- Browser localStorage is the only persistence mechanism in this release.
+- No backend, database, authentication, account service, network fetching, or live data.
+- League content is sample data returned through an asynchronous typed adapter.
 
-## Constitution Check
+## Clarification Decisions
 
-- **Verified Quality**: Add unit and integration tests for account creation, profile and league selection, homepage prioritization, validation, authorization, and data states. Configure coverage to remain above 80%.
-- **Documented APIs**: Define authentication, profile preferences, competitions, scores, schedules, standings, and news-link endpoints in OpenAPI before implementation.
-- **Security and Authentication**: Store only password hashes and necessary preference data server-side. Validate all account and preference inputs at the boundary and enforce authorization on the server.
-- **Simple Architecture**: Introduce the smallest backend and persistence layer needed for accounts and MVP data; keep league and preference models explicit rather than creating a generalized content engine.
-- **Mobile-First, Findable Experience**: Make onboarding and preference editing keyboard accessible, touch-friendly, and usable on phone widths. Keep core personalized content within three clicks.
-- **Responsible Data Use**: Store source attribution and URLs for coverage and news links; respect each source's terms, licensing, rate limits, caching, and backoff requirements.
+- Teaching paragraphs and plain-language hints appear on the homepage only.
+- The adapter interface is asynchronous to preserve a future live-data boundary.
+- Scores, Schedules, Standings, and News each receive a visible `Sample data` label.
+- Invalid or empty localStorage preferences show a reset message, then use default homepage ordering.
+- This plan is synchronized with the clarified spec and tasks.
 
-## Data Model
+## Architecture
 
-- `User`: id, email or username, password hash, created timestamp, updated timestamp.
-- `VolleyballProfile`: one of Youth Athlete, High School Athlete, College Athlete, Parent, Coach, Beginner Fan, Casual Fan, or Super Fan.
-- `League`: stable id and display name for NCAA D1, NCAA D2, NCAA D3, LOVB, and MLV.
-- `UserPreferences`: user id, volleyball profile, preferred league ids, updated timestamp.
-- `Competition`: stable id, display name, type, and availability metadata.
-- `Match`: competition id, teams, scheduled/completed time, status, score, source, and last-updated timestamp.
-- `Standing`: competition id, season, team, position, record or points, source, and last-updated timestamp.
-- `NewsLink`: title, summary, source, source URL, publication date, competition context, and content type.
-
-## API Surface
-
-Document and implement these minimum routes in OpenAPI:
-
-- `POST /api/auth/register`: create an account and return an authenticated session.
-- `POST /api/auth/login`: authenticate a returning user.
-- `GET /api/me`: return the current user and preferences.
-- `PUT /api/me/preferences`: validate and save one profile plus one or more preferred leagues.
-- `GET /api/home`: return homepage sections prioritized by profile and preferred leagues.
-- `GET /api/leagues`: return supported leagues and availability.
-- `GET /api/leagues/{leagueId}/scores`: return live, final, and upcoming scores.
-- `GET /api/leagues/{leagueId}/schedules`: return match schedules.
-- `GET /api/leagues/{leagueId}/standings`: return standings for a season.
-- `GET /api/news`: return attributed news links filtered by league where supported.
+- `src/types.ts`: profiles, league IDs, preferences, and coverage types.
+- `src/officialSources.ts`: typed official source links keyed by league ID.
+- `src/dataAdapter.ts`: asynchronous adapter interface and sample-data implementation.
+- `src/lib/preferences.ts`: localStorage read, write, validation, and reset-message state.
+- `src/components/`: shared shell, navigation, data sections, profile teaching content, and sample-data labels.
+- `src/pages/`: Home, Preferences, and shared league-page rendering.
+- `src/App.tsx`: React Router route definitions.
 
 ## Implementation Phases
 
-### Phase 1: Application Foundation
+### Phase 1: Data Boundary
 
-1. Choose and configure the minimal backend and persistence solution compatible with the course environment.
-2. Add environment configuration with fake placeholders only and document local setup.
-3. Add shared TypeScript schemas/constants for profiles, leagues, validation, API responses, loading states, and errors.
-4. Add OpenAPI documentation for the initial API surface.
+1. Define the async adapter interface for scores, schedules, standings, and attributed news links.
+2. Move the existing hardcoded dataset behind the sample-data adapter implementation.
+3. Preserve the five exact official source URLs in the typed source map.
+4. Ensure adapter results are labeled `Sample data` in every data section.
 
-### Phase 2: Account and Personalization
+### Phase 2: Preferences
 
-1. Implement registration, login/session handling, logout, and authenticated route protection.
-2. Implement preference onboarding with the eight profile options and five league options.
-3. Enforce one profile, at least one preferred league, valid league ids, and authenticated ownership on preference writes.
-4. Add preference editing so returning users can update their selections.
-5. Add onboarding and preference-management UI states for loading, validation errors, server errors, and successful completion.
+1. Remove the email field from Preferences.
+2. Keep the eight profile choices and five league choices.
+3. Validate one profile and at least one league before saving.
+4. Save and read only `profile` and `leagues` in localStorage.
+5. Detect invalid or empty saved values, show a reset message, clear the invalid state, and use default ordering.
 
-### Phase 3: MVP Coverage
+### Phase 3: Profile-Driven Homepage
 
-1. Add league navigation for NCAA D1, NCAA D2, NCAA D3, LOVB, and MLV.
-2. Implement scores, schedules, standings, and attributed news-link views with source and freshness metadata.
-3. Add source adapters behind a small common interface with caching, bounded polling, backoff, and unavailable states.
-4. Keep external articles as summaries and links; do not republish article content.
+1. Define original teaching paragraphs for scoring, rotations, positions, and libero concepts.
+2. Show all four topics and plain-language hints for Beginner Fan and Youth Athlete.
+3. Show light hints for Casual Fan.
+4. Show dense content without teaching text for Super Fan.
+5. Define the specified concise or dense treatment for High School Athlete, College Athlete, Parent, and Coach.
+6. Keep all teaching content on the homepage only.
+7. Order homepage league content from saved preferred leagues.
 
-### Phase 4: Personalized Homepage
+### Phase 4: Accessibility and Responsive Review
 
-1. Build homepage prioritization from the authenticated user's profile and preferred leagues.
-2. Define deterministic prioritization rules so the same preferences produce predictable ordering.
-3. Preserve useful public defaults for unauthenticated users and a clear setup path for authenticated users without preferences.
-4. Add responsive navigation and accessibility semantics for onboarding, filters, scores, schedules, standings, and news links.
+1. Confirm keyboard navigation and visible focus states for router links, preference controls, and official source links.
+2. Verify all four sample-data sections and teaching content wrap at 375px without horizontal scrolling.
+3. Preserve plain-text official source links without logos or league marks.
 
-### Phase 5: Verification and Release Readiness
+### Phase 5: Verification
 
-1. Add unit tests for schemas, prioritization, source-state handling, and data transformations.
-2. Add integration tests for account creation, login, preference setup, preference authorization, and personalized homepage responses.
-3. Add UI tests for new-user onboarding, returning-user prioritization, mobile layout, keyboard navigation, and error/empty states.
-4. Verify OpenAPI matches route behavior and confirm source attribution and rate-limit handling.
-5. Run lint, build, tests, and coverage; confirm coverage exceeds 80%.
+1. Add tests for adapter results, preference validation, reset behavior, ordering, and profile presentation rules.
+2. Add responsive and keyboard-focused UI tests for Home, Preferences, and league pages.
+3. Run lint, build, and the configured test and coverage commands.
+4. Confirm in-scope code meets the coverage requirement.
 
-## Acceptance-Test Matrix
+## Future Work
 
-| Requirement | Verification |
-|---|---|
-| New users create accounts | Registration integration test and UI onboarding test |
-| New users select profile and leagues | Schema, API, and UI validation tests for all allowed values |
-| Returning users receive prioritized homepage content | Preference fixture plus homepage ordering integration test |
-| All five leagues are supported | League contract test and navigation/UI test |
-| MVP scores, schedules, standings, and news links exist | Endpoint contract tests and responsive view tests |
-| Unauthorized users cannot access private preferences | Authentication and cross-user authorization tests |
-| External news is attributed and linked | API response and UI rendering test |
-| Data failures remain understandable | Loading, unavailable, empty, and error-state tests |
+Accounts, server-side preferences, live NCAA/LOVB/MLV integrations, backend and OpenAPI, server authorization, favorites, notifications, AI summaries, recruiting and transfer tracking, Version 3 content, and the commercial licensing path remain future releases as documented in `spec.md`.
 
-## Future Release Boundaries
+## Risks
 
-- **Version 2**: Favorite teams and players, following teams, personalized dashboards based on favorite teams, personalized news feed, match reminders and notifications, recruiting updates, transfer portal updates, AI-generated match summaries, and AI-generated article summaries.
-- **Version 3**: USA Volleyball news integration, youth and club volleyball coverage, recruiting resources, tournament and camp finder, and coaching and training content.
-
-## Risks and Mitigations
-
-- **Data source access changes**: isolate each source adapter, cache responses, expose freshness, and support an unavailable state.
-- **Authentication complexity**: use a proven session/authentication mechanism and keep authorization checks server-side.
-- **Personalization ambiguity**: start with documented deterministic rules based only on profile and preferred leagues.
-- **Scope growth**: keep favorite and following teams, favorite-based dashboards, notifications, recruiting and transfer updates, AI summaries, USA Volleyball, youth and club coverage, tournaments, camps, and coaching content outside the MVP.
+- Official-source terms and commercial rights remain unresolved; this release uses no scraping, no fetching, and no league logos or marks.
+- Teaching text must be fact-checked by the project owner.
+- The sample adapter must remain visibly separate from any future live-data adapter.
