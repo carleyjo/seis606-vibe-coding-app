@@ -1,98 +1,85 @@
-# 🏐 VolleyCentral
-
+#  🏐 VolleyCentral
 ## Everything Volleyball. One Place.
 
-VolleyCentral is a centralized volleyball platform focused on NCAA Women's Volleyball (Division I, II, and III), LOVB, and MLV.
+VolleyCentral is a frontend-only React application for exploring sample volleyball coverage across NCAA Division I, NCAA Division II, NCAA Division III, LOVB, and MLV.
 
-The goal is to eliminate the fragmented experience volleyball fans face when trying to follow scores, rankings, schedules, standings, news, recruiting updates, and transfer portal activity across multiple websites.
+## Status
 
-## Problem
+The current MVP frontend is implemented with React 19, TypeScript, Vite, and React Router. It includes localStorage preferences, routed league pages, hardcoded sample scores/schedules/standings/news, and official-source links. It does not yet include accounts, a backend, authentication, live data, data fetching, or a database.
 
-Volleyball content is spread across NCAA, LOVB, MLV, team websites, social media, and news outlets. Fans often need to browse several sources just to stay informed.
+## What Works Today
 
-VolleyCentral brings everything together into a single, personalized experience.
+- Routes for Home, Preferences, NCAA D1, NCAA D2, NCAA D3, LOVB, and MLV.
+- Profile and preferred-league selection saved in browser localStorage.
+- Homepage ordering based on saved league preferences.
+- League pages with sample Scores, Schedules, Standings, and News sections.
+- Official-source links for each supported league.
+- Responsive branding and navigation styles.
 
-## Target Users
+All current league content is sample data. Official links are provided for verification; the application does not fetch live data.
 
-- Volleyball fans
-- Current and former players
-- Parents
-- Coaches
-- Recruiters
-- Sports analysts
+## Not Built Yet
 
-## Core Features
+- Removal of the temporary email field from Preferences.
+- Async typed data-adapter interface and sample-data adapter implementation.
+- Profile-specific teaching paragraphs and plain-language homepage hints.
+- Per-section `Sample data` labels and invalid-preference reset messaging.
+- Vitest, React Testing Library, and coverage configuration.
+- Accounts, authentication, backend services, server-side preferences, OpenAPI, favorites, notifications, AI summaries, recruiting, transfer tracking, and live league integrations.
 
-### Minimum Viable Product (Version 1)
+## Setup and Commands
 
-Personalized Dashboard, Favorite Teams, Live Scores, Rankings, Team Standings, Match Schedules, Volleyball News Feed
+From the application directory:
 
-### Future Features
+```powershell
+cd volleycentral-test
+npm install
+npm run dev -- --host localhost
+```
 
-Recruiting Tracker, Transfer Portal Tracker, Player Statistics, AI Match Summaries, Player Profiles, Personalized Notifications
+The verified quality commands are:
 
-### Version 2
-- Favorite teams and players
-- Personalized news feed
-- Match reminders and notifications
-- AI-generated article summaries
-- Enhanced league filtering
+```powershell
+npm run build
+npm run lint
+```
 
-### Version 3
-- USA Volleyball news integration
-- Youth and club volleyball coverage
-- Recruiting resources and college commitments
-- Tournament and camp finder
-- Coaching and training content
+The build and lint commands passed on October 7, 2026. `npm audit` reported one high-severity `source-map-js` vulnerability; no automated fix was applied.
 
-### Long-Term Vision
-VolleyCentral aims to become the central hub for volleyball fans, athletes, parents, coaches, and recruits by delivering personalized content based on user interests, experience level, and favorite leagues.
+## Testing
 
-## Supported Competitions
+No Vitest or React Testing Library suite is configured yet. The planned testing stack is Vitest, jsdom, React Testing Library, and coverage reporting. Until that work is completed, `npm run build` and `npm run lint` are the available verified checks.
 
-### NCAA Women's Volleyball
-- Division I
-- Division II
-- Division III
+## Project Structure
 
-### Professional Volleyball
-- LOVB (League One Volleyball)
-- MLV (Major League Volleyball)
+```text
+volleycentral-test/
+	src/
+		App.tsx
+		components/       Shared shell and league sections
+		pages/            Home, Preferences, and league pages
+		data.ts           Hardcoded sample league data
+		lib/preferences.ts
+		types.ts
+		officialSources.ts
+		App.css
+		index.css
+	public/
+	package.json
+```
 
-## Design Goals
+## Specification Artifacts
 
-- Mobile-first experience
-- Fast and intuitive navigation
-- Modern sports media aesthetic
-- Information available within three clicks
-- Personalized experience based on favorite teams
+- [Specification](.specify/specs/001-volleycentral/spec.md)
+- [Implementation plan](.specify/specs/001-volleycentral/plan.md)
+- [Task list](.specify/specs/001-volleycentral/tasks.md)
+- [Saved specification analysis](docs/spec-analysis.md)
+- [Original app ideas](docs/original-app-ideas.md)
 
-## Data & Attribution
+## Data Source Risks
 
-VolleyCentral uses publicly available information and respects all attribution requirements, terms of service, and rate limits associated with third-party data sources.
+This release uses no scraping, no network fetching, and no league logos or marks. LOVB terms restrict commercial use, mining, scraping, and public or derivative display without authorization. NCAA.com terms cover scores, statistics, logos, and member-school marks, and commercial linking may require written permission. MLV terms for `provolleyball.com` remain to be reviewed. Future legal routes include official feeds, embeds, league partnerships, or a licensed sports-data provider.
 
-The platform serves as an aggregation and discovery tool and links users to original sources when appropriate.
+## Future Work
 
-## Tech Stack
-- VS Code
-- GitHub Copilot
-
-## Project Status
-
-Constitution Phase - Complete
-
-Initial Specification Phase - Complete
-
-UI Mockup Phase - Complete
-
-Task, Plan, and Implement Phase
-
-## Author
-
-Carley Saeger
-
-University of St. Thomas
-
-SEIS 606 - Vibe Coding
-
-Fall 2026
+Future releases may add accounts and server-side preferences, live NCAA/LOVB/MLV integrations, backend/OpenAPI services, favorites, notifications, AI summaries, recruiting and transfer tracking, USA Volleyball, youth and club coverage, recruiting resources, tournament and camp tools, coaching content, and a commercial licensing path.

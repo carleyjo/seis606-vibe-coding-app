@@ -5,7 +5,6 @@ export type Profile = (typeof profiles)[number]
 export type LeagueName = (typeof leagueNames)[number]
 
 export type Preferences = {
-  email: string
   profile: Profile
   leagues: LeagueName[]
 }

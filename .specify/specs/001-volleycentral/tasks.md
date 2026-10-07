@@ -25,22 +25,22 @@
 
 ## Phase 2: MVP Data and Preferences
 
-- [ ] T013 Remove the email field from the Preferences page and preference type, or document a specific release-scoped reason to keep it.
-- [ ] T014 Define the asynchronous typed data-adapter interface for scores, schedules, standings, and attributed news links.
-- [ ] T015 Implement the sample-data adapter as the only adapter and move the current hardcoded dataset behind it.
-- [ ] T016 Add a visible `Sample data` label to each Scores, Schedules, Standings, and News section.
+- [x] T013 Remove the email field from the Preferences page and preference type, or document a specific release-scoped reason to keep it.
+- [x] T014 Define the asynchronous typed data-adapter interface for scores, schedules, standings, and attributed news links.
+- [x] T015 Implement the sample-data adapter as the only adapter and move the current hardcoded dataset behind it.
+- [x] T016 Add a visible `Sample data` label to each Scores, Schedules, Standings, and News section.
 - [ ] T017 Detect invalid or empty localStorage preferences, show a reset message, clear invalid values, and use default homepage ordering.
-- [ ] T018 Keep the five exact official-source URLs and confirm no other external data URLs are introduced.
+- [x] T018 Keep the five exact official-source URLs and confirm no other external data URLs are introduced.
 
 ## Phase 3: Profile-Driven Homepage
 
-- [ ] T019 Author original teaching paragraphs for scoring, rotations, positions, and libero concepts.
+- [x] T019 Author original draft teaching paragraphs for scoring, rotations, positions, and libero concepts.
 - [ ] T020 Fact-check and record approval for the authored teaching content before release.
-- [ ] T021 Add all four teaching topics and plain-language hints for Beginner Fan on the homepage only.
-- [ ] T022 Add all four teaching topics with encouraging, age-appropriate language for Youth Athlete on the homepage only.
-- [ ] T023 Add concise hints for High School Athlete, College Athlete, Parent, and Coach according to the specification.
-- [ ] T024 Add light scoring and libero hints for Casual Fan.
-- [ ] T025 Keep Super Fan's homepage view dense and free of teaching text and plain-language hints.
+- [x] T021 Add all four draft teaching topics and plain-language hints for Beginner Fan on the homepage only.
+- [x] T022 Add all four draft teaching topics with encouraging, age-appropriate language for Youth Athlete on the homepage only.
+- [x] T023 Add concise hints or dense presentation for High School Athlete, College Athlete, Parent, and Coach according to the specification.
+- [x] T024 Add light scoring and libero hints for Casual Fan.
+- [x] T025 Keep Super Fan's homepage view dense and free of teaching text and plain-language hints.
 - [ ] T026 Verify profile changes update homepage presentation without requiring an account.
 
 ## Phase 4: Testing and Documentation
