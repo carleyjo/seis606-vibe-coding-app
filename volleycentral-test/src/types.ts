@@ -14,8 +14,45 @@ export type LeagueData = {
   slug: string
   detail: string
   tone: string
-  scores: { matchup: string; result: string; status: string }[]
-  schedules: { date: string; matchup: string; venue: string; whereToWatch: string }[]
-  standings: { team: string; record: string; points: string }[]
-  news: { title: string; source: string; age: string }[]
+  scores: Score[]
+  schedules: Schedule[]
+  standings: Standing[]
+  news: NewsItem[]
+  fetchedAt: string
+  source: 'provider' | 'sample'
+}
+
+export type Score = {
+  id: string
+  matchup: string
+  result: string
+  status: string
+  homeTeam: string
+  awayTeam: string
+  homeSets?: number
+  awaySets?: number
+}
+
+export type Schedule = {
+  id: string
+  date: string
+  matchup: string
+  venue: string
+  whereToWatch: string
+  homeTeam: string
+  awayTeam: string
+}
+
+export type Standing = {
+  team: string
+  record: string
+  points: string
+  rank: number
+}
+
+export type NewsItem = {
+  title: string
+  source: string
+  age: string
+  url?: string
 }

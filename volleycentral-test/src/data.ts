@@ -1,18 +1,18 @@
 import type { LeagueData, LeagueName } from './types'
 
 const sampleScores = (label: string) => [
-  { matchup: `${label} Sample Team A 2  ·  ${label} Sample Team B 2`, result: 'Set 5', status: 'Live today' },
-  { matchup: `${label} Sample Team C 3  ·  ${label} Sample Team D 1`, result: 'Final today', status: 'Today' },
-  { matchup: `${label} Sample Team E  ·  ${label} Sample Team F`, result: 'Upcoming today', status: 'Today' },
+  { id: `${label}-score-1`, matchup: `${label} Sample Team A 2  ·  ${label} Sample Team B 2`, result: 'Set 5', status: 'Live today', homeTeam: `${label} Sample Team A`, awayTeam: `${label} Sample Team B`, homeSets: 2, awaySets: 2 },
+  { id: `${label}-score-2`, matchup: `${label} Sample Team C 3  ·  ${label} Sample Team D 1`, result: 'Final today', status: 'Today', homeTeam: `${label} Sample Team C`, awayTeam: `${label} Sample Team D`, homeSets: 3, awaySets: 1 },
+  { id: `${label}-score-3`, matchup: `${label} Sample Team E  ·  ${label} Sample Team F`, result: 'Upcoming today', status: 'Today', homeTeam: `${label} Sample Team E`, awayTeam: `${label} Sample Team F` },
 ]
 
 const sampleSchedules = (label: string) => [
-  { date: 'Today', matchup: `${label} Sample Team E vs ${label} Sample Team F`, venue: 'Sample Arena', whereToWatch: 'Sample listing: check official site' },
-  { date: 'Tomorrow', matchup: `${label} Sample Team G vs ${label} Sample Team H`, venue: 'Sample Events Center', whereToWatch: 'Sample listing: check official site' },
+  { id: `${label}-schedule-1`, date: 'Today', matchup: `${label} Sample Team E vs ${label} Sample Team F`, venue: 'Sample Arena', whereToWatch: 'Sample listing: check official site', homeTeam: `${label} Sample Team E`, awayTeam: `${label} Sample Team F` },
+  { id: `${label}-schedule-2`, date: 'Tomorrow', matchup: `${label} Sample Team G vs ${label} Sample Team H`, venue: 'Sample Events Center', whereToWatch: 'Sample listing: check official site', homeTeam: `${label} Sample Team G`, awayTeam: `${label} Sample Team H` },
 ]
 
 const sampleStandings = (label: string) => Array.from({ length: 10 }, (_, index) => ({
-  team: `${label} Sample Team ${String(index + 1).padStart(2, '0')}`,
+  rank: index + 1, team: `${label} Sample Team ${String(index + 1).padStart(2, '0')}`,
   record: `${19 - index}-${index + 1}`,
   points: `${570 - index * 24}`,
 }))
@@ -24,7 +24,7 @@ const sampleNews = (label: string) => [
 ]
 
 function makeLeague(name: LeagueName, slug: string, detail: string, tone: string): LeagueData {
-  return { name, slug, detail, tone, scores: sampleScores(name), schedules: sampleSchedules(name), standings: sampleStandings(name), news: sampleNews(name) }
+  return { name, slug, detail, tone, scores: sampleScores(name), schedules: sampleSchedules(name), standings: sampleStandings(name), news: sampleNews(name), fetchedAt: new Date(0).toISOString(), source: 'sample' }
 }
 
 export const leagueData: Record<LeagueName, LeagueData> = {

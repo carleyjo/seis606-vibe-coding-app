@@ -1,4 +1,4 @@
-import { leagueNames, type LeagueName, type Preferences } from '../types'
+import { leagueNames, profiles, type LeagueName, type Preferences } from '../types'
 
 export const preferencesStorageKey = 'volleycentral-preferences'
 
@@ -18,7 +18,7 @@ export function readPreferences(): Preferences | null {
 function isPreferences(value: unknown): value is Preferences {
   if (!value || typeof value !== 'object') return false
   const candidate = value as Partial<Preferences>
-  return typeof candidate.profile === 'string' && leagueNames.includes(candidate.profile as (typeof leagueNames)[number]) && Array.isArray(candidate.leagues) && candidate.leagues.length > 0 && candidate.leagues.every((league) => typeof league === 'string' && leagueNames.includes(league as (typeof leagueNames)[number]))
+  return typeof candidate.profile === 'string' && profiles.includes(candidate.profile as (typeof profiles)[number]) && Array.isArray(candidate.leagues) && candidate.leagues.length > 0 && candidate.leagues.every((league) => typeof league === 'string' && leagueNames.includes(league as (typeof leagueNames)[number]))
 }
 
 export function savePreferences(preferences: Preferences) {

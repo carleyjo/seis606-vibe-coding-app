@@ -32,8 +32,8 @@ describe('frontend components', () => {
     localStorage.setItem('volleycentral-preferences', JSON.stringify({ profile: 'Casual Fan', leagues: ['LOVB', 'MLV'] }))
     renderWithRouter(<HomePage />)
     await waitFor(() => expect(screen.getAllByRole('link', { name: /LOVB/ }).length).toBeGreaterThan(0))
-    expect(screen.getByText('LOVB')).toBeInTheDocument()
-    expect(screen.getByText('MLV')).toBeInTheDocument()
+    expect(screen.getAllByText('LOVB').length).toBeGreaterThan(0)
+    expect(screen.getAllByText('MLV').length).toBeGreaterThan(0)
     expect(screen.queryByText('NCAA D1')).not.toBeInTheDocument()
   })
 
