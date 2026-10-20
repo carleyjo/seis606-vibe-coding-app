@@ -8,7 +8,8 @@ beforeEach(() => {
     const slug = String(input).split('/').pop()
     const league = Object.values(leagueData).find((item) => item.slug === slug)
     const data = slug === 'leagues' ? Object.values(leagueData) : league
-    return { ok: Boolean(data), status: data ? 200 : 404, json: async () => data ? { data } : { error: 'Not found' } }
+    const payload = data ? { data } : { error: 'Not found' }
+    return { ok: Boolean(data), status: data ? 200 : 404, text: async () => JSON.stringify(payload) }
   }))
 })
 afterEach(() => {

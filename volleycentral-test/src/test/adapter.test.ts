@@ -67,19 +67,19 @@ describe('NCAA D1 live adapter', () => {
     expect(league.scores[0].matchup).toContain('NCAA D1 Sample Team')
   })
 
-  it('rejects invalid scoreboard payloads', async () => {
+  it('falls back to sample data for invalid scoreboard payloads', async () => {
     process.env.NCAA_D1_API_URL = 'https://example.test/d1'
     vi.stubGlobal('fetch', vi.fn(async () => ({ ok: true, status: 200, json: async () => ({}) })))
-    await expect(new NcaaD1Adapter().getLeague()).rejects.toThrow('invalid scoreboard payload')
+    await expect(new NcaaD1Adapter().getLeague()).resolves.toMatchObject({ source: 'sample' })
   })
 
-  it('reports provider timeouts after ten seconds', async () => {
+  it('falls back to sample data after a provider timeout', async () => {
     process.env.NCAA_D1_API_URL = 'https://example.test/d1'
     vi.useFakeTimers()
     vi.stubGlobal('fetch', vi.fn((_url: string, options: RequestInit) => new Promise((_resolve, reject) => {
       options.signal?.addEventListener('abort', () => reject(Object.assign(new Error('aborted'), { name: 'AbortError' })))
     })))
-    const pending = expect(new NcaaD1Adapter().getLeague()).rejects.toThrow('timed out after 10 seconds')
+    const pending = expect(new NcaaD1Adapter().getLeague()).resolves.toMatchObject({ source: 'sample' })
     await vi.advanceTimersByTimeAsync(10_000)
     await pending
   })

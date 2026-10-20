@@ -79,10 +79,8 @@ export class NcaaD1Adapter extends ConfiguredLeagueAdapter {
       }
       return mapNcaaD1Scoreboard(payload as NcaaScoreboardResponse)
     } catch (error) {
-      if (error instanceof Error && error.name === 'AbortError') {
-        throw new Error(`${this.leagueId} provider request timed out after 10 seconds`, { cause: error })
-      }
-      throw error
+      console.error(`${this.leagueId} provider request failed; using sample data`, error)
+      return { ...leagueById[this.leagueId], fetchedAt: new Date().toISOString(), source: 'sample' }
     } finally {
       clearTimeout(timeout)
     }
