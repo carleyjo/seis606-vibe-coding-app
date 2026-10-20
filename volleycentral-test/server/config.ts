@@ -1,7 +1,8 @@
 import type { LeagueId } from '../src/officialSources'
 
-type ServerEnv = {
+export type ServerEnv = {
   cacheTtlSeconds: number
+  ncaaD1TimeZone: string
   endpoints: Partial<Record<LeagueId, string>>
   apiKeys: Partial<Record<LeagueId, string>>
 }
@@ -14,6 +15,7 @@ function readNumber(value: string | undefined, fallback: number): number {
 export function getServerEnv(): ServerEnv {
   return {
     cacheTtlSeconds: readNumber(process.env.VOLLEYCENTRAL_CACHE_TTL_SECONDS, 60),
+    ncaaD1TimeZone: process.env.NCAA_D1_TIME_ZONE || 'America/Chicago',
     endpoints: {
       'ncaa-d1': process.env.NCAA_D1_API_URL,
       'ncaa-d2': process.env.NCAA_D2_API_URL,

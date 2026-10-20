@@ -28,8 +28,8 @@ export type NcaaScoreboardResponse = {
   games?: Array<{ game?: NcaaScoreboardGame }>
 }
 
-function teamName(team: NcaaScoreboardTeam): string {
-  return team.names?.short || team.names?.full || 'Unknown team'
+function teamName(team: NcaaScoreboardTeam | undefined): string {
+  return team?.names?.short || team?.names?.full || 'Unknown team'
 }
 
 function gameStatus(game: NcaaScoreboardGame): string {
@@ -41,7 +41,9 @@ function gameDate(game: NcaaScoreboardGame): string {
 }
 
 export function mapNcaaD1Scoreboard(payload: NcaaScoreboardResponse, fetchedAt = new Date().toISOString()): LeagueData {
-  const games = (payload.games ?? []).flatMap((entry) => entry.game ? [entry.game] : [])
+  const games = (payload.games ?? [])
+    .flatMap((entry) => entry.game ? [entry.game] : [])
+    .filter((game) => Boolean(game.gameID) && teamName(game.home) !== 'Unknown team' && teamName(game.away) !== 'Unknown team')
   const scores: Score[] = games.map((game) => {
     const homeTeam = teamName(game.home)
     const awayTeam = teamName(game.away)

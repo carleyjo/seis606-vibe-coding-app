@@ -1,7 +1,7 @@
-import { leagueData } from '../src/data'
 import type { LeagueData } from '../src/types'
 import type { LeagueId } from '../src/officialSources'
 import { getServerEnv } from './config'
+import { leagueData } from '../src/data'
 import { mapNcaaD1Scoreboard, type NcaaScoreboardResponse } from './ncaaD1Mapper'
 
 export interface LeagueAdapter {
@@ -21,6 +21,21 @@ function isLeagueData(value: unknown): value is LeagueData {
   if (!value || typeof value !== 'object') return false
   const candidate = value as Partial<LeagueData>
   return Array.isArray(candidate.scores) && Array.isArray(candidate.schedules) && Array.isArray(candidate.standings)
+}
+
+export function getDatePath(timeZone: string): string {
+  const parts = new Intl.DateTimeFormat('en-CA', {
+    timeZone,
+    year: 'numeric',
+    month: '2-digit',
+    day: '2-digit',
+  }).formatToParts(new Date())
+  const values = Object.fromEntries(parts.filter((part) => part.type !== 'literal').map((part) => [part.type, part.value]))
+  return `${values.year}/${values.month}/${values.day}`
+}
+
+export function buildNcaaD1Url(baseUrl: string, timeZone: string): string {
+  return `${baseUrl.replace(/\/$/, '')}/${getDatePath(timeZone)}/all-conf`
 }
 
 abstract class ConfiguredLeagueAdapter implements LeagueAdapter {
@@ -47,18 +62,33 @@ export class NcaaD1Adapter extends ConfiguredLeagueAdapter {
 
   override async getLeague(): Promise<LeagueData> {
     const env = getServerEnv()
-    const endpoint = env.endpoints[this.leagueId]
-    if (!endpoint) return super.getLeague()
+    const baseUrl = env.endpoints[this.leagueId]
+    if (!baseUrl) return super.getLeague()
 
     const headers: Record<string, string> = { Accept: 'application/json' }
     const apiKey = env.apiKeys[this.leagueId]
     if (apiKey) headers.Authorization = `Bearer ${apiKey}`
-    const response = await fetch(endpoint, { headers })
-    if (!response.ok) throw new Error(`${this.leagueId} provider returned HTTP ${response.status}`)
-    const payload = await response.json() as NcaaScoreboardResponse
-    return mapNcaaD1Scoreboard(payload)
+    const controller = new AbortController()
+    const timeout = setTimeout(() => controller.abort(), 10_000)
+    try {
+      const response = await fetch(buildNcaaD1Url(baseUrl, env.ncaaD1TimeZone), { headers, signal: controller.signal })
+      if (!response.ok) throw new Error(`${this.leagueId} provider returned HTTP ${response.status}`)
+      const payload: unknown = await response.json()
+      if (!payload || typeof payload !== 'object' || !Array.isArray((payload as { games?: unknown }).games)) {
+        throw new Error(`${this.leagueId} provider returned an invalid scoreboard payload`)
+      }
+      return mapNcaaD1Scoreboard(payload as NcaaScoreboardResponse)
+    } catch (error) {
+      if (error instanceof Error && error.name === 'AbortError') {
+        throw new Error(`${this.leagueId} provider request timed out after 10 seconds`, { cause: error })
+      }
+      throw error
+    } finally {
+      clearTimeout(timeout)
+    }
   }
 }
+
 export class NcaaD2Adapter extends ConfiguredLeagueAdapter { readonly leagueId = 'ncaa-d2' as const }
 export class NcaaD3Adapter extends ConfiguredLeagueAdapter { readonly leagueId = 'ncaa-d3' as const }
 export class LovbAdapter extends ConfiguredLeagueAdapter { readonly leagueId = 'lovb' as const }
