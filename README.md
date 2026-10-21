@@ -9,42 +9,30 @@ Vercel Deployment: https://seis606-vibe-coding-app.vercel.app
 
 ## Features
 
-League coverage for NCAA D1, D2, D3, LOVB, and MLV
-NCAA Division I scores
-NCAA Division I Top 16 rankings/standings
-NCAA Division I news integration
-User league preferences
-Homepage personalization based on selected preferences
-Official source links for each league
-Responsive React interface
-Server-side adapter architecture
-Fallback handling when NCAA data sources are unavailable
-Vercel cloud deployment
+- League coverage for NCAA D1, D2, D3, LOVB, and MLV
+- NCAA Division I scores
+- NCAA Division I Top 16 rankings/standings
+- NCAA Division I news integration
+- User league preferences
+- Homepage personalization based on selected preferences
+- Official source links for each league
+- Responsive React interface
+- Server-side adapter architecture
+- Fallback handling when NCAA data sources are unavailable
+- Vercel cloud deployment
 
 ## Technology Stack
 
-Frontend
-React 19
-TypeScript
-Vite
-React Router
-Backend
-Vercel Serverless Functions
-TypeScript
-Development Tools
-GitHub Copilot
-ChatGPT
-ESLint
-Vitest
-Hosting
-Vercel
+Frontend, React 19, TypeScript, Vite, React Router, Backend, Vercel Serverless Functions, TypeScript, Development Tools, GitHub Copilot, ChatGPT, ESLint, Vitest, Hosting, Vercel
 
 ## Running Locally
 
 From the project root:
 
 cd volleycentral-test
+
 npm install
+
 npm run dev
 
 Open:
@@ -55,17 +43,12 @@ http://localhost:5173
 Available validation commands:
 
 npm run build
+
 npm run lint
+
 npm run test
 
-Current status:
-
-Build passing ✅
-Lint passing ✅
-Test suite passing ✅
-
 ## Project Structure
-.
 ├── .specify/
 │   ├── memory/
 │   │   └── constitution.md
@@ -91,9 +74,9 @@ Test suite passing ✅
 ## Specification Artifacts
 
 Spec Kit Deliverables:
-Specification
-Implementation Plan
-Task List
+- Specification
+- Implementation Plan
+- Task List
 
 Located in:
 
@@ -101,18 +84,21 @@ Located in:
 
 Supporting documentation:
 
-docs/spec-analysis.md
-docs/test-log
-docs/analysis-writeup
+- docs/spec-analysis.md
+- docs/test-log
+- docs/analysis-writeup
 
 # Known Limitations
-NCAA content relies on external source availability.
-NCAA data parsing may require updates if the NCAA website changes structure.
-NCAA D2 and D3 are not yet connected to live standings/news sources.
-LOVB and MLV currently use fixture-backed content.
-Full accessibility testing has not yet been completed.
+- NCAA content relies on external source availability.
+- NCAA data parsing may require updates if the NCAA website changes structure.
+- NCAA D2 and D3 are not yet connected to live standings/news sources.
+- LOVB and MLV currently use fixture-backed content.
+- Full accessibility testing has not yet been completed.
 
 Author: Carley Saeger
-SEIS 606: Vibe Coding 
+
+SEIS 606: Vibe Coding
+
 Fall 2026
+
 University of St. Thomas
