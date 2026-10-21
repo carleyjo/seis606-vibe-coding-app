@@ -2,7 +2,13 @@
 ## Everything Volleyball. One Place.
 VolleyCentral is a web application that centralizes volleyball information across multiple leagues, including NCAA Division I, NCAA Division II, NCAA Division III, LOVB, and MLV.
 
+<<<<<<< HEAD
 The application was developed as part of an AI-assisted software development project using GitHub Copilot and modern web technologies. Users can browse volleyball leagues, view scores, standings, and news, manage league preferences, and access official league resources through a single interface.
+=======
+Main Website Link:  https://seis606-vibe-coding-app.vercel.app/
+
+VolleyCentral is a frontend-only React application for exploring sample volleyball coverage across NCAA Division I, NCAA Division II, NCAA Division III, LOVB, and MLV.
+>>>>>>> 63a6072cbfc1f1a764d161e72467b777c14ab6eb
 
 Live Application
 Vercel Deployment:
