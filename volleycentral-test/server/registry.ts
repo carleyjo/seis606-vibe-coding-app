@@ -1,8 +1,8 @@
-import type { LeagueData } from '../src/types'
-import type { LeagueId } from '../src/officialSources'
-import { cache } from './cache'
-import { getServerEnv } from './config'
-import { createLeagueAdapters, type LeagueAdapter } from './adapters'
+import type { LeagueData } from '../src/types.js'
+import type { LeagueId } from '../src/officialSources.js'
+import { cache } from './cache.js'
+import { getServerEnv } from './config.js'
+import { createLeagueAdapters, type LeagueAdapter } from './adapters.js'
 
 export class LeagueRegistry {
   private readonly adapters: ReadonlyMap<LeagueId, LeagueAdapter>

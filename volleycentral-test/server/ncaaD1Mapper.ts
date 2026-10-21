@@ -1,5 +1,5 @@
-import type { LeagueData, NewsItem, Schedule, Score, Standing } from '../src/types'
-import { leagueData } from '../src/data'
+import type { LeagueData, NewsItem, Schedule, Score, Standing } from '../src/types.js'
+import { leagueData } from '../src/data.js'
 
 export type NcaaScoreboardTeam = {
   score?: string

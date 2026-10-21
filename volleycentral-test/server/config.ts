@@ -1,4 +1,4 @@
-import type { LeagueId } from '../src/officialSources'
+import type { LeagueId } from '../src/officialSources.js'
 
 export type ServerEnv = {
   cacheTtlSeconds: number

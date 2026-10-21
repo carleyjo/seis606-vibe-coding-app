@@ -1,8 +1,8 @@
-import type { LeagueData } from '../src/types'
-import type { LeagueId } from '../src/officialSources'
-import { getServerEnv } from './config'
-import { leagueData } from '../src/data'
-import { mapNcaaD1Scoreboard, type NcaaScoreboardResponse } from './ncaaD1Mapper'
+import type { LeagueData } from '../src/types.js'
+import type { LeagueId } from '../src/officialSources.js'
+import { getServerEnv } from './config.js'
+import { leagueData } from '../src/data.js'
+import { mapNcaaD1Scoreboard, type NcaaScoreboardResponse } from './ncaaD1Mapper.js'
 
 export interface LeagueAdapter {
   readonly leagueId: LeagueId

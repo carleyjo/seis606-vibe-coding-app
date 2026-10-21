@@ -1,6 +1,6 @@
 import type { VercelRequest, VercelResponse } from '@vercel/node'
-import type { LeagueId } from '../../src/officialSources'
-import { leagueRegistry } from '../../server/registry'
+import type { LeagueId } from '../../src/officialSources.js'
+import { leagueRegistry } from '../../server/registry.js'
 
 const leagueIds: LeagueId[] = ['ncaa-d1', 'ncaa-d2', 'ncaa-d3', 'lovb', 'mlv']
 
