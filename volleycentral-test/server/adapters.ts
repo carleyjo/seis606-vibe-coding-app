@@ -2,7 +2,7 @@ import type { LeagueData } from '../src/types.js'
 import type { LeagueId } from '../src/officialSources.js'
 import { getServerEnv } from './config.js'
 import { leagueData } from '../src/data.js'
-import { mapNcaaD1Scoreboard, type NcaaScoreboardResponse } from './ncaaD1Mapper.js'
+import { mapNcaaD1NewsHtml, mapNcaaD1Scoreboard, mapNcaaD1StandingsHtml, type NcaaScoreboardResponse } from './ncaaD1Mapper.js'
 
 export interface LeagueAdapter {
   readonly leagueId: LeagueId
@@ -22,6 +22,9 @@ function isLeagueData(value: unknown): value is LeagueData {
   const candidate = value as Partial<LeagueData>
   return Array.isArray(candidate.scores) && Array.isArray(candidate.schedules) && Array.isArray(candidate.standings)
 }
+
+const ncaaD1StandingsUrl = 'https://www.ncaa.com/rankings/volleyball-women/d1/di-committees-top-16'
+const ncaaD1NewsUrl = 'https://www.ncaa.com/sports/volleyball-women/d1'
 
 export function getDatePath(timeZone: string): string {
   const parts = new Intl.DateTimeFormat('en-CA', {
@@ -77,12 +80,29 @@ export class NcaaD1Adapter extends ConfiguredLeagueAdapter {
       if (!payload || typeof payload !== 'object' || !Array.isArray((payload as { games?: unknown }).games)) {
         throw new Error(`${this.leagueId} provider returned an invalid scoreboard payload`)
       }
-      return mapNcaaD1Scoreboard(payload as NcaaScoreboardResponse)
+      const league = mapNcaaD1Scoreboard(payload as NcaaScoreboardResponse)
+      const [standings, news] = await Promise.all([
+        fetchNcaaD1Html(ncaaD1StandingsUrl).then(mapNcaaD1StandingsHtml).catch((error: unknown) => {
+          console.error('NCAA D1 standings request failed; using sample standings', error)
+          return leagueById[this.leagueId].standings
+        }),
+        fetchNcaaD1Html(ncaaD1NewsUrl).then(mapNcaaD1NewsHtml).catch((error: unknown) => {
+          console.error('NCAA D1 news request failed; using sample news', error)
+          return leagueById[this.leagueId].news
+        }),
+      ])
+      return { ...league, standings, news }
     } catch (error) {
       console.error(`${this.leagueId} provider request failed; using sample data`, error)
       return { ...leagueById[this.leagueId], fetchedAt: new Date().toISOString(), source: 'sample' }
     } finally {
       clearTimeout(timeout)
+    }
+
+    async function fetchNcaaD1Html(url: string): Promise<string> {
+      const response = await fetch(url, { headers: { Accept: 'text/html' } })
+      if (!response.ok) throw new Error(`NCAA D1 content returned HTTP ${response.status}`)
+      return response.text()
     }
   }
 }

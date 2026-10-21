@@ -1,6 +1,6 @@
 import { afterEach, describe, expect, it, vi } from 'vitest'
 import { buildNcaaD1Url, getDatePath, NcaaD1Adapter } from '../../server/adapters'
-import { mapNcaaD1Scoreboard } from '../../server/ncaaD1Mapper'
+import { mapNcaaD1NewsHtml, mapNcaaD1Scoreboard, mapNcaaD1StandingsHtml } from '../../server/ncaaD1Mapper'
 import { sampleDataAdapter } from '../dataAdapter'
 import { leagueNames } from '../types'
 
@@ -54,10 +54,18 @@ describe('NCAA D1 live adapter', () => {
         { game: { gameID: '', title: '', away: {}, home: {} } },
       ],
     })
+
     expect(league.source).toBe('provider')
     expect(league.scores).toHaveLength(1)
     expect(league.scores[0].homeTeam).toBe('Team B')
     expect(league.schedules[0].whereToWatch).toBe('ESPN+')
+  })
+
+  it('maps NCAA D1 standings and news HTML', () => {
+    const standings = mapNcaaD1StandingsHtml('<table><tbody><tr><td>1</td><td>Nebraska</td><td>19-0</td></tr></tbody></table>')
+    const news = mapNcaaD1NewsHtml('<a href="/news/volleyball-women/article/2026-10-18/top-story">Top story</a>')
+    expect(standings).toEqual([{ rank: 1, team: 'Nebraska', record: '19-0', points: '' }])
+    expect(news[0]).toMatchObject({ title: 'Top story', source: 'NCAA.com', age: '2026-10-18', url: 'https://www.ncaa.com/news/volleyball-women/article/2026-10-18/top-story' })
   })
 
   it('returns unchanged sample data when the endpoint is missing', async () => {

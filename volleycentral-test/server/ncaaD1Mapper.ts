@@ -28,6 +28,44 @@ export type NcaaScoreboardResponse = {
   games?: Array<{ game?: NcaaScoreboardGame }>
 }
 
+function decodeHtml(value: string): string {
+  return value
+    .replace(/<[^>]+>/g, '')
+    .replace(/&amp;/g, '&')
+    .replace(/&#039;|&#39;/g, "'")
+    .replace(/&quot;/g, '"')
+    .replace(/&nbsp;/g, ' ')
+    .replace(/\s+/g, ' ')
+    .trim()
+}
+
+function absoluteNcaaUrl(path: string): string {
+  return path.startsWith('http') ? path : `https://www.ncaa.com${path}`
+}
+
+export function mapNcaaD1StandingsHtml(html: string): Standing[] {
+  const rowPattern = /<tr[^>]*>\s*<td[^>]*>(.*?)<\/td>\s*<td[^>]*>(.*?)<\/td>\s*<td[^>]*>(.*?)<\/td>\s*<\/tr>/gis
+  return [...html.matchAll(rowPattern)].flatMap((match) => {
+    const rank = Number(decodeHtml(match[1]))
+    const team = decodeHtml(match[2])
+    const record = decodeHtml(match[3])
+    return Number.isInteger(rank) && rank > 0 && team && record ? [{ rank, team, record, points: '' }] : []
+  })
+}
+
+export function mapNcaaD1NewsHtml(html: string): NewsItem[] {
+  const linkPattern = /<a[^>]+href=["']([^"']+)["'][^>]*>(.*?)<\/a>/gis
+  const seen = new Set<string>()
+  return [...html.matchAll(linkPattern)].flatMap((match) => {
+    const path = match[1]
+    const title = decodeHtml(match[2])
+    if ((!path.startsWith('/news/') && !path.startsWith('/video/')) || !title || seen.has(path)) return []
+    seen.add(path)
+    const dateMatch = path.match(/\/(\d{4}-\d{2}-\d{2})\//)
+    return [{ title, source: 'NCAA.com', age: dateMatch?.[1] ?? 'NCAA coverage', url: absoluteNcaaUrl(path) }]
+  }).slice(0, 3)
+}
+
 function teamName(team: NcaaScoreboardTeam | undefined): string {
   return team?.names?.short || team?.names?.full || 'Unknown team'
 }

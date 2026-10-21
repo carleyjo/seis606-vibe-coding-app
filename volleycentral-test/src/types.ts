@@ -55,4 +55,5 @@ export type NewsItem = {
   source: string
   age: string
   url?: string
+  summary?: string
 }
