@@ -28,22 +28,22 @@ Frontend, React 19, TypeScript, Vite, React Router, Backend, Vercel Serverless F
 ## Running Locally
 
 From the project root:
-
-- cd volleycentral-test
-- npm install
-- npm run dev
-
+```text
+cd volleycentral-test
+npm install
+npm run dev
+```
 Open:
 http://localhost:5173
 
 ## Testing
 
 Available validation commands:
-
-- npm run build
-- npm run lint
-- npm run test
-
+```text
+npm run build
+npm run lint
+npm run test
+```
 ## Project Structure
 ```text
 volleycentral-test/
