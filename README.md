@@ -29,11 +29,9 @@ Frontend, React 19, TypeScript, Vite, React Router, Backend, Vercel Serverless F
 
 From the project root:
 
-cd volleycentral-test
-
-npm install
-
-npm run dev
+- cd volleycentral-test
+- npm install
+- npm run dev
 
 Open:
 http://localhost:5173
@@ -42,25 +40,12 @@ http://localhost:5173
 
 Available validation commands:
 
-npm run build
-
-npm run lint
-
-npm run test
+- npm run build
+- npm run lint
+- npm run test
 
 ## Project Structure
-├── .specify/
-│   ├── memory/
-│   │   └── constitution.md
-│   └── specs/
-│       └── 001-volleycentral/
-│           ├── spec.md
-│           ├── plan.md
-│           └── tasks.md
-│
-├── docs/
-│
-├── volleycentral-test/
+volleycentral-test/
 │   ├── api/
 │   │   └── leagues/
 │   ├── public/
