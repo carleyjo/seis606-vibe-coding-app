@@ -45,6 +45,7 @@ Available validation commands:
 - npm run test
 
 ## Project Structure
+```text
 volleycentral-test/
 │   ├── api/
 │   │   └── leagues/
@@ -55,6 +56,7 @@ volleycentral-test/
 │   ├── package.json
 │   ├── vite.config.ts
 │   └── vercel.json
+```
 
 ## Specification Artifacts
 
