@@ -1,85 +1,143 @@
 #  🏐 VolleyCentral
 ## Everything Volleyball. One Place.
+VolleyCentral is a web application that centralizes volleyball information across multiple leagues, including NCAA Division I, NCAA Division II, NCAA Division III, LOVB, and MLV.
 
-VolleyCentral is a frontend-only React application for exploring sample volleyball coverage across NCAA Division I, NCAA Division II, NCAA Division III, LOVB, and MLV.
+The application was developed as part of an AI-assisted software development project using GitHub Copilot and modern web technologies. Users can browse volleyball leagues, view scores, standings, and news, manage league preferences, and access official league resources through a single interface.
 
-## Status
+Live Application
+Vercel Deployment:
 
-The current MVP frontend is implemented with React 19, TypeScript, Vite, and React Router. It includes localStorage preferences, routed league pages, hardcoded sample scores/schedules/standings/news, and official-source links. It does not yet include accounts, a backend, authentication, live data, data fetching, or a database.
+https://seis606-vibe-coding-app.vercel.app
 
-## What Works Today
+Features
+Current Features
+League coverage for NCAA D1, D2, D3, LOVB, and MLV
+NCAA Division I scores
+NCAA Division I Top 16 rankings/standings
+NCAA Division I news integration
+User league preferences
+Homepage personalization based on selected preferences
+Official source links for each league
+Responsive React interface
+Server-side adapter architecture
+Fallback handling when NCAA data sources are unavailable
+Vercel cloud deployment
+NCAA Division I Data Sources
+Scores:
 
-- Routes for Home, Preferences, NCAA D1, NCAA D2, NCAA D3, LOVB, and MLV.
-- Profile and preferred-league selection saved in browser localStorage.
-- Homepage ordering based on saved league preferences.
-- League pages with sample Scores, Schedules, Standings, and News sections.
-- Official-source links for each supported league.
-- Responsive branding and navigation styles.
+NCAA scoreboard integration
+Standings:
 
-All current league content is sample data. Official links are provided for verification; the application does not fetch live data.
+NCAA Women's Volleyball Committee Top 16 Rankings
+News:
 
-## Not Built Yet
+NCAA Women's Volleyball D1 News
+Technology Stack
+Frontend
+React 19
+TypeScript
+Vite
+React Router
+Backend
+Vercel Serverless Functions
+TypeScript
+Development Tools
+GitHub Copilot
+ChatGPT
+ESLint
+Vitest
+Hosting
+Vercel
+Project Status
+Fully Working
+Homepage navigation
+League browsing
+User preferences
+NCAA D1 news
+NCAA D1 standings
+Official source links
+Cloud deployment
+Automated tests
+Partially Working
+NCAA D1 score integration relies on external sources and fallback behavior.
+NCAA standings and news parsing depend on NCAA page structure remaining consistent.
+Future Development
+NCAA D2 live integration
+NCAA D3 live integration
+LOVB live integration
+MLV live integration
+User accounts
+Notifications
+Favorites
+Accessibility improvements
+Enhanced mobile optimization
+Running Locally
+From the project root:
 
-- Removal of the temporary email field from Preferences.
-- Async typed data-adapter interface and sample-data adapter implementation.
-- Profile-specific teaching paragraphs and plain-language homepage hints.
-- Per-section `Sample data` labels and invalid-preference reset messaging.
-- Vitest, React Testing Library, and coverage configuration.
-- Accounts, authentication, backend services, server-side preferences, OpenAPI, favorites, notifications, AI summaries, recruiting, transfer tracking, and live league integrations.
-
-## Setup and Commands
-
-From the application directory:
-
-```powershell
 cd volleycentral-test
 npm install
-npm run dev -- --host localhost
-```
+npm run dev
+Open:
 
-The verified quality commands are:
+http://localhost:5173
+Testing
+Available validation commands:
 
-```powershell
 npm run build
 npm run lint
-```
+npm run test
+Current status:
 
-The build and lint commands passed on October 7, 2026. `npm audit` reported one high-severity `source-map-js` vulnerability; no automated fix was applied.
-
-## Testing
-
-No Vitest or React Testing Library suite is configured yet. The planned testing stack is Vitest, jsdom, React Testing Library, and coverage reporting. Until that work is completed, `npm run build` and `npm run lint` are the available verified checks.
-
-## Project Structure
-
-```text
+Build passing ✅
+Lint passing ✅
+Test suite passing ✅
+Project Structure
 volleycentral-test/
-	src/
-		App.tsx
-		components/       Shared shell and league sections
-		pages/            Home, Preferences, and league pages
-		data.ts           Hardcoded sample league data
-		lib/preferences.ts
-		types.ts
-		officialSources.ts
-		App.css
-		index.css
-	public/
-	package.json
-```
+│
+├── api/                 Vercel serverless functions
+├── server/              Adapters, registry, and server logic
+├── src/
+│   ├── components/
+│   ├── pages/
+│   ├── lib/
+│   ├── data.ts
+│   ├── officialSources.ts
+│   └── types.ts
+│
+├── public/
+├── package.json
+├── vite.config.ts
+└── vercel.json
+Specification Artifacts
+Spec Kit Deliverables
+Specification
+Implementation Plan
+Task List
+Located in:
 
-## Specification Artifacts
+.specify/specs/001-volleycentral/
+Supporting documentation:
 
-- [Specification](.specify/specs/001-volleycentral/spec.md)
-- [Implementation plan](.specify/specs/001-volleycentral/plan.md)
-- [Task list](.specify/specs/001-volleycentral/tasks.md)
-- [Saved specification analysis](docs/spec-analysis.md)
-- [Original app ideas](docs/original-app-ideas.md)
+docs/spec-analysis.md
+docs/original-app-ideas.md
+Known Limitations
+NCAA content relies on external source availability.
+NCAA data parsing may require updates if the NCAA website changes structure.
+NCAA D2 and D3 are not yet connected to live standings/news sources.
+LOVB and MLV currently use fixture-backed content.
+Full accessibility testing has not yet been completed.
+Lessons Learned
+This project demonstrated both the advantages and limitations of AI-assisted development.
 
-## Data Source Risks
+GitHub Copilot accelerated development significantly but several deployment and integration issues required manual debugging. The most notable issue occurred during Vercel deployment when ES Module import resolution caused serverless functions to fail despite all local tests passing.
 
-This release uses no scraping, no network fetching, and no league logos or marks. LOVB terms restrict commercial use, mining, scraping, and public or derivative display without authorization. NCAA.com terms cover scores, statistics, logos, and member-school marks, and commercial linking may require written permission. MLV terms for `provolleyball.com` remain to be reviewed. Future legal routes include official feeds, embeds, league partnerships, or a licensed sports-data provider.
+The project reinforced the importance of:
+Testing in production environments
+Reviewing AI-generated code critically
+Maintaining fallback behaviors
+Incremental deployment and validation
 
-## Future Work
-
-Future releases may add accounts and server-side preferences, live NCAA/LOVB/MLV integrations, backend/OpenAPI services, favorites, notifications, AI summaries, recruiting and transfer tracking, USA Volleyball, youth and club coverage, recruiting resources, tournament and camp tools, coaching content, and a commercial licensing path.
+Author: Carley Saeger
+SEIS 606: Vibe Coding 
+Fall 2026
+University of St. Thomas

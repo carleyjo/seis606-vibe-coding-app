@@ -1,0 +1,236 @@
+## 1. Functional Testing
+
+# FT-01: Home Page Loads Successfully
+
+What was tested: Application homepage loading.
+
+How it was tested: Navigated to the deployed Vercel application.
+
+What happened: Homepage loaded successfully and displayed navigation options and league coverage information.
+
+Severity: Low
+
+Action: No action required.
+
+Status: Fixed/Passed
+
+# FT-02: League Navigation
+
+What was tested: Navigation to NCAA D1, NCAA D2, NCAA D3, LOVB, and MLV league pages.
+
+How it was tested: Clicked each league link from the navigation menu and homepage.
+
+What happened: League pages loaded and displayed the appropriate league information.
+
+Severity: Low
+
+Action: No action required.
+
+Status: Fixed/Passed
+
+# FT-03: NCAA Division I Scores
+
+What was tested: NCAA D1 score retrieval.
+
+How it was tested: Opened NCAA D1 coverage page and verified scoreboard data was displayed.
+
+What happened: Score data loaded and displayed successfully.
+
+Severity: Medium
+
+Action: Implemented server-side NCAA adapter architecture and fallback behavior.
+
+Status: Fixed/Passed
+
+# FT-04: NCAA Division I Standings
+
+What was tested: NCAA Top 16 standings integration.
+
+How it was tested: Opened NCAA D1 standings section and compared rankings against the NCAA source.
+
+What happened: Rankings loaded successfully and displayed rank, team, and record information.
+
+Severity: Medium
+
+Action: Added NCAA standings mapping and fallback handling.
+
+Status: Fixed/Passed
+
+# FT-05: NCAA Division I News
+
+What was tested: NCAA D1 news feed.
+
+How it was tested: Viewed NCAA D1 news section and checked article links.
+
+What happened: News articles loaded and linked correctly.
+
+Severity: Medium
+
+Action: Added NCAA news integration with fallback behavior.
+
+Status: Fixed/Passed
+
+# FT-06: User Preferences
+
+What was tested: Preference selection and storage.
+
+How it was tested: Selected preferred leagues and revisited coverage pages.
+
+What happened: Preferences were saved correctly and applied throughout the application.
+
+Severity: Medium
+
+Action: No additional changes required.
+
+Status: Fixed/Passed
+
+## 2. Edge Cases and Negative Testing
+
+# EC-01: Refresh During Navigation
+
+What was tested: Refreshing browser during league navigation.
+
+How it was tested: Refreshed page while moving between leagues.
+
+What happened: Got a this page doesn't exist message. 
+
+Severity: Medium
+
+Action: Need to fix that when I finish league integration. 
+
+Status: Deferred
+
+# EC-02: Rapid League Switching
+
+What was tested: Repeated switching between leagues.
+
+How it was tested: Quickly moved between league pages multiple times.
+
+What happened: Content updated correctly with no visible crashes.
+
+Severity: Medium
+
+Action: No changes required.
+
+Status: Passed
+
+## 3. Usability Testing
+
+Tester: My sister
+
+# UT-01: Independent User Test
+
+What was tested: General use of the application without assistance.
+
+How it was tested: User was asked to:
+
+Find NCAA Division I standings.
+View NCAA news.
+Change a league preference.
+Return to the homepage.
+
+What happened:
+
+User successfully located standings and news.
+User initially struggled to find the Preferences page.
+User thought some of the pages and buttons were repetitive. 
+User loves volleyball and wanted to get some real data in there instead of all sample data. 
+
+Severity: Low
+
+Action: Navigation labels were moved around. NCAA D1 real data was integrated. 
+
+Status: Passed/Deferred
+
+## 4. Security Probing
+
+# SEC-01: View Page Source
+
+What was tested: Exposure of secrets through page source.
+
+How it was tested: Examined generated HTML and browser source code.
+
+What happened: No API keys or sensitive configuration values were visible.
+
+Severity: High
+
+Action: Confirmed API configuration remains server-side.
+
+Status: Passed
+
+# SEC-02: Browser Developer Tools Inspection
+
+What was tested: Exposure of configuration through DevTools.
+
+How it was tested: Reviewed network requests, application storage, and client-side scripts.
+
+What happened: No server-side secrets or API keys were exposed.
+
+Severity: High
+
+Action: No changes required.
+
+Status: Passed
+
+# SEC-03: URL Manipulation
+
+What was tested: Direct URL modifications.
+
+How it was tested: Manually changed route parameters and league identifiers.
+
+What happened: Invalid routes displayed appropriate error handling.
+
+Severity: Medium
+
+Action: No changes required.
+
+Status: Passed
+
+## 5. AI-Assisted Review
+
+Tool Used: ChatGPT (GPT-5)
+
+Purpose: Independent QA review of the deployed VolleyCentral application.
+
+# AI-01: NCAA Standings Reliability
+
+Finding: NCAA D1 standings could become stale or inconsistent if source content changes.
+
+What was tested: Verified standings integration approach.
+
+What happened: Finding was partially verified.
+
+Action: Implemented fallback standings data and documented source dependency.
+
+Severity: Medium
+
+Status: Deferred
+
+
+# AI-02: Navigation and Routing Reliability
+
+Finding: Route handling and refresh behavior could fail.
+
+What was tested: Production deployment and route navigation.
+
+What happened: Verified through Vercel deployment testing.
+
+Action: Fixed module-resolution issues and deployment configuration problems.
+
+Severity: High
+
+Status: Fixed
+
+# AI-03: Mobile Layout Concerns
+
+Finding: Standings may overflow on smaller screens.
+
+What was tested: Manual mobile-size viewport review.
+
+What happened: No significant issues observed.
+
+Action: Take a deeper look once all leagues are fully integrated. 
+
+Severity: Low
+
+Status: Deferred
